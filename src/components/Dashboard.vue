@@ -18,6 +18,11 @@ import Sidebar from './Sidebar';
 
 export default{
   components: { Sidebar, Navbar },
-  name: 'Admin'
+  name: 'Admin',
+
+  created() {
+    let myCookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    this.$http.defaults.headers.common.Authorization = myCookie;
+  }
 }
 </script>

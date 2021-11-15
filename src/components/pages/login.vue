@@ -42,6 +42,9 @@ export default {
       this.$http.post(api, vm.user).then((response) => {
         
         if(response.data.success){
+          const token = response.data.token;
+          const expired = response.data.expired;
+          document.cookie = `hexToken=${token}; expires=(${new Date(expired)})`;
           vm.$router.push('/admin/products');
         }else{
           console.log('登入失敗')
