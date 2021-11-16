@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"/>
     <div class="text-right mt-4">
       <button class="btn btn-primary" @click="openModal(true)">新增商品</button>
     </div>
@@ -57,16 +58,17 @@
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
                   <input type="text" class="form-control" id="image"
-                    placeholder="請輸入圖片連結" v-model="tempProduct.image">
+                    placeholder="請輸入圖片連結" v-model="tempProduct.imageUrl">
                 </div>
                 <div class="form-group">
                   <label for="customFile">或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <!-- font-awesome icon v-if為true時呈現 -->
+                    <i class="fas fa-spinner fa-spin" v-if="status.fileUploading"></i>
                   </label>
                   <input type="file" id="customFile" class="form-control"
-                    ref="files">
+                    ref="files" @change="uploadFile">
                 </div>
-                <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
+                <img :src="tempProduct.imageUrl"
                   class="img-fluid" alt="">
               </div>
               <div class="col-sm-8">
@@ -119,7 +121,6 @@
                       id="is_enabled" v-model="tempProduct.is_enabled"
                       :true-value="1"
                       :false-value="0">
-                      <!-- 設定true=1 false=0 -->
                     <label class="form-check-label" for="is_enabled">
                       是否啟用
                     </label>
@@ -170,7 +171,11 @@ export default {
     return{
       products: [],
       tempProduct: {},
-      isNew: false
+      isNew: false,
+      isLoading: false, // 整個畫面loading icon
+      status: {         // 局部loading icon方式
+        fileUploading: false,
+      }
     }
   },
   
@@ -178,9 +183,11 @@ export default {
     getProducts() {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=:page`;
       const vm = this;
+      vm.isLoading = true;
 
       this.$http.get(api).then((response) => { 
         vm.products = response.data.products;
+        vm.isLoading = false;
       })
     },
 
@@ -207,7 +214,6 @@ export default {
 
       this.$http[httpMethod](api,{data: vm.tempProduct}).then((response) => { 
       console.log(response.data)
-      // vm.products = response.data.products;
       if(response.data.success) {
         $('#productModal').modal("hide");
         vm.getProducts();
@@ -237,6 +243,26 @@ export default {
           vm.getProducts();
           console.log(response.data);
           $('#delProductModal').modal('hide');
+        }
+      })
+    },
+
+    uploadFile() {
+      const file = this.$refs.files.files[0];
+      const vm = this; 
+      const formData = new FormData();
+      formData.append('file-to-upload',file);
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
+      vm.status.fileUploading = true; // 上傳時轉成true呈現出來
+      
+      this.$http.post(api, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((response) => {
+        if(response.data.success) {
+          vm.status.fileUploading = false; // 上傳完畢就隱藏
+          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
         }
       })
     }
