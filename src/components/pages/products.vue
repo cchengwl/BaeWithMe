@@ -263,13 +263,17 @@ export default {
         if(response.data.success) {
           vm.status.fileUploading = false; // 上傳完畢就隱藏
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+        }else {
+          // 如果上傳失敗
+          // $emit message:push事件，帶入message跟status
+          vm.$bus.$emit('message:push', response.data.message, 'danger');
         }
       })
     }
   },
 
   created() {
-    this.getProducts();
+    this.getProducts();S
   }
 }
 </script>
