@@ -9,32 +9,27 @@
         <tr>
           <td style="width: 200px;">類別</td>
           <td>產品名稱</td>
-          <td class="text-right" style="width: 100px;">數量</td>
+          <!-- <td class="text-right" style="width: 100px;">數量</td> -->
           <td class="text-right" style="width: 100px;">原價</td>
           <td class="text-right" style="width: 100px;">售價</td>
           <td class="text-center" style="width: 100px;">狀態</td>
-          <td class="text-center" style="width: 100px;">編輯</td>
-          <td class="text-center" style="width: 100px;">刪除</td>
+          <td class="text-center" style="width: 150px;">編輯</td>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in products" :key="item.id" class="align-middle">
-          <td>{{item.category}}</td>
-          <td>{{item.title}}</td>
-          <td class="text-right">{{item.num}}</td>
-          <td class="text-right">{{item.origin_price}}</td>
-          <td class="text-right">{{item.price}}</td>
-          <!-- <td>{{item.unit}}</td> -->
-          <!-- <td>{{item.image}}</td> -->
-          <td class="text-center">
+        <tr v-for="item in products" :key="item.id">
+          <td class="align-middle">{{item.category}}</td>
+          <td class="align-middle">{{item.title}}</td>
+          <!-- <td class="text-right">{{item.num}}</td> -->
+          <td class="text-right align-middle">{{item.origin_price | currency}}</td>
+          <td class="text-right align-middle">{{item.price | currency}}</td>
+          <td class="text-center align-middle">
             <span v-if="item.is_enabled">啟用</span>
             <span v-else>未啟用</span>
           </td>
-          <td class="text-center">
-            <button class="btn btn-outline-primary" @click="openModal(false,item)">編輯</button>
-          </td>
-          <td class="text-center">
-            <button class="btn btn-outline-primary" @click="deleteModal(item)">刪除</button>
+          <td class="text-center align-middle" style="font-size: 0px;">
+            <button class="btn btn-outline-primary editBtn" @click="openModal(false,item)">編輯</button>
+            <button class="btn btn-outline-danger delBtn" @click="deleteModal(item)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -301,3 +296,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .editBtn{
+    border-radius: .25rem 0 0 .25rem;
+  }
+
+  .delBtn{
+    border-radius: 0 .25rem .25rem 0;
+  }
+</style>
