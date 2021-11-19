@@ -160,6 +160,26 @@
         </div>
       </div>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <!-- 如果has.pre:false代表沒有前一頁，禁用此按鈕 -->
+        <li class="page-item" :class="{'disabled': !pagination.has_pre}">
+          <a class="page-link" href="#" aria-label="Previous" @click="getProducts(pagination.current_page -1)">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="page in pagination.total_pages" :key="page" :class="{'active': pagination.current_page === page}">
+          <a class="page-link" href="#" @click="getProducts(page)">{{page}}</a>
+        </li>
+        <li class="page-item" :class="{'disabled': !pagination.has_next}">
+          <a class="page-link" href="#" aria-label="Next" @click="getProducts(pagination.current_page +1)">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -175,29 +195,33 @@ export default {
       isLoading: false, // 整個畫面loading icon
       status: {         // 局部loading icon方式
         fileUploading: false,
-      }
+      },
+      pagination: {},
     }
   },
   
   methods: {
-    getProducts() {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=:page`;
+    // ES6參數預設值 page = 1
+    getProducts(page = 1) {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
       const vm = this;
       vm.isLoading = true;
 
       this.$http.get(api).then((response) => { 
         vm.products = response.data.products;
         vm.isLoading = false;
+        vm.pagination = response.data.pagination;
       })
     },
 
     openModal(isNew, item) {
+      const vm = this;
       if(isNew) {
         this.tempProduct = {};
-        isNew = true;
+        vm.isNew = true;
       }else {
         this.tempProduct = Object.assign({},item)
-        isNew = false;
+        vm.isNew = false;
       }
       $('#productModal').modal("show");
     },
@@ -273,7 +297,7 @@ export default {
   },
 
   created() {
-    this.getProducts();S
+    this.getProducts();
   }
 }
 </script>
