@@ -34,7 +34,7 @@ router.beforeEach((to, from, next) => {
     const api = `${process.env.APIPATH}/api/user/check`;
     axios.post(api).then((response) => {
       if(response.data.success){
-        console.log(from)
+        // console.log(from)
         next();
       }else {
         next({

@@ -155,33 +155,16 @@
         </div>
       </div>
     </div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <!-- 如果has.pre:false代表沒有前一頁，禁用此按鈕 -->
-        <li class="page-item" :class="{'disabled': !pagination.has_pre}">
-          <a class="page-link" href="#" aria-label="Previous" @click="getProducts(pagination.current_page -1)">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item" v-for="page in pagination.total_pages" :key="page" :class="{'active': pagination.current_page === page}">
-          <a class="page-link" href="#" @click="getProducts(page)">{{page}}</a>
-        </li>
-        <li class="page-item" :class="{'disabled': !pagination.has_next}">
-          <a class="page-link" href="#" aria-label="Next" @click="getProducts(pagination.current_page +1)">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <pagination :pagination="pagination"/>
   </div>
 </template>
 
 <script>
 import $ from 'jquery';
+import Pagination from '@/components/Pagination';
 
 export default {
+  components: { Pagination },
   data () {
     return{
       products: [],
@@ -198,7 +181,7 @@ export default {
   methods: {
     // ES6參數預設值 page = 1
     getProducts(page = 1) {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
       const vm = this;
       vm.isLoading = true;
 
@@ -293,6 +276,10 @@ export default {
 
   created() {
     this.getProducts();
+
+    this.$bus.$on('getProducts', page =>{
+      this.getProducts(page);
+    })
   }
 }
 </script>
