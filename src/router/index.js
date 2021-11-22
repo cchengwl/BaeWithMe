@@ -3,6 +3,9 @@ import Router from 'vue-router';
 import Login from '@/components/pages/login';
 import Dashboard from '@/components/Dashboard';
 import Products from '@/components/pages/products';
+import Order from '@/components/pages/orders';
+import Coupon from '@/components/pages/coupon';
+import Customer from '@/components/pages/customerOrder';
 
 Vue.use(Router)
 
@@ -21,14 +24,37 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Dashboard,
-      meta: { requiresAuth: true }, //判斷此頁面是否需要驗證
       children: [
         {
           path: 'products',
           name: 'products',
           component: Products,
           meta: { requiresAuth: true },
+        },
+        {
+          path: 'orders',
+          name: 'orders',
+          component: Order,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'coupon',
+          name: 'coupon',
+          component: Coupon,
+          meta: { requiresAuth: true },
         }
+      ]
+    },
+    {
+      path: '/',
+      name: 'Customer',
+      component: Dashboard,
+      children: [
+        {
+          path: '/customer_order',
+          name: 'customerOrder',
+          component: Customer,
+        },
       ]
     }
   ]
