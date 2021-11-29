@@ -9,7 +9,7 @@
         <tr>
           <td style="width: 200px;">類別</td>
           <td>產品名稱</td>
-          <!-- <td class="text-right" style="width: 100px;">數量</td> -->
+          <td class="text-right" style="width: 100px;">數量</td>
           <td class="text-right" style="width: 100px;">原價</td>
           <td class="text-right" style="width: 100px;">售價</td>
           <td class="text-center" style="width: 100px;">狀態</td>
@@ -20,7 +20,7 @@
         <tr v-for="item in products" :key="item.id">
           <td class="align-middle">{{item.category}}</td>
           <td class="align-middle">{{item.title}}</td>
-          <!-- <td class="text-right">{{item.num}}</td> -->
+          <td class="text-right">{{item.num}}</td>
           <td class="text-right align-middle">{{item.origin_price | currency}}</td>
           <td class="text-right align-middle">{{item.price | currency}}</td>
           <td class="text-center align-middle">
