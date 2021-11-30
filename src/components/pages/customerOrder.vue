@@ -32,7 +32,7 @@
     </div>
     <hr width="100%;">
     <!-- 購物車如為空隱藏表格 -->
-    <div class="d-flex flex-column" style="margin: 0 auto;">
+    <div class="row flex-column my-0 mx-auto">
       <table class="table">
         <thead>
           <tr>
@@ -69,11 +69,11 @@
             <button class="btn btn-outline-secondary" type="button" @click="applyCoupon">套用優惠碼</button>
           </div>
       </div>
-      <!-- 表格 -->
 
+      <!-- 表格 -->
       <Validation-observer v-slot="{ invalid }">
         <div class="my-5 row justify-content-center">
-          <form class="col-md-6" @click.prevent="creatOrder">
+          <form class="col-8" @click.prevent="creatOrder">
               <Validation-provider name="email" rules="required|email" v-slot="{ errors,classes }">
                 <div class="form-group">
                   <label for="useremail">Email</label>
@@ -265,9 +265,14 @@ export default({
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
       const vm = this;
 
-      this.$http.post(api, {"data":vm.form} ).then((response) => {
-        console.log(response.data);
+      this.$validator.validate().then((result) => {
+        if(result) {
+          this.$http.post(api, {"data":vm.form} ).then((response) => {
+            console.log(response);
+          })
+        }
       })
+
     },
   },
   
@@ -289,5 +294,11 @@ export default({
     height: 150px; 
     background-size: cover; 
     background-position: center
+  }
+
+  @media screen and (max-width: 720px) {
+    .row.mt-5{
+      margin-top: 7rem !important;
+    }
   }
 </style>
