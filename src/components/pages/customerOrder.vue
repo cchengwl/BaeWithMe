@@ -265,14 +265,9 @@ export default({
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
       const vm = this;
 
-      this.$validator.validate().then((result) => {
-        if(result) {
-          this.$http.post(api, {"data":vm.form} ).then((response) => {
-            console.log(response);
-          })
-        }
+      this.$http.post(api, {"data":vm.form} ).then((response) => {
+        console.log(response.data);
       })
-
     },
   },
   
