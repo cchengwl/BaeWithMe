@@ -6,6 +6,9 @@ import VueAxios from 'vue-axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap';
+import { ValidationObserver, ValidationProvider, extend, localize, configure } from 'vee-validate';
+import TW from 'vee-validate/dist/locale/zh_TW.json'
+import * as rules from 'vee-validate/dist/rules';
 
 import App from './App';
 import router from './router';
@@ -17,6 +20,22 @@ Vue.config.productionTip = false;
 
 Vue.component('Loading',Loading); // 全域啟用方式，不需要每個元件都載入
 Vue.filter('currency',currencyFilter) // filter('自訂元件名稱', 載入元件)
+
+Object.keys(rules).forEach((rule) => {
+  extend(rule, rules[rule]);
+});
+
+localize('zh_TW', TW);
+ 
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
+
+configure({
+  classes: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
+});
 
 axios.defaults.withCredentials = true;
 

@@ -32,7 +32,7 @@
     </div>
     <hr width="100%;">
     <!-- 購物車如為空隱藏表格 -->
-    <div class="d-flex flex-column" style="margin: 0 auto;" v-if="cart.carts.length !== 0">
+    <div class="d-flex flex-column" style="margin: 0 auto;">
       <table class="table">
         <thead>
           <tr>
@@ -69,6 +69,56 @@
             <button class="btn btn-outline-secondary" type="button" @click="applyCoupon">套用優惠碼</button>
           </div>
       </div>
+      <!-- 表格 -->
+
+      <Validation-observer v-slot="{ invalid }">
+        <div class="my-5 row justify-content-center">
+          <form class="col-md-6" @click.prevent="creatOrder">
+              <Validation-provider name="email" rules="required|email" v-slot="{ errors,classes }">
+                <div class="form-group">
+                  <label for="useremail">Email</label>
+                  <input type="email" class="form-control" :class="classes" name="email" id="useremail"
+                    v-model="form.user.email" placeholder="請輸入 Email" required>
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </div>
+              </Validation-provider>
+          
+              <Validation-provider name="收件人姓名" rules="required" v-slot="{ errors,classes }">
+                <div class="form-group">
+                  <label for="username">收件人姓名</label>
+                  <input type="text" class="form-control" :class="classes" name="name" id="username"
+                    v-model="form.user.name" placeholder="輸入姓名">
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </div>
+              </Validation-provider>
+            
+              <Validation-provider name="收件人電話" rules="required|numeric" v-slot="{ errors,classes }">
+                <div class="form-group">
+                  <label for="usertel">收件人電話</label>
+                  <input type="tel" name="tel" class="form-control" :class="classes" id="usertel" v-model="form.user.tel" placeholder="請輸入電話">
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </div>
+              </Validation-provider>
+           
+              <Validation-provider name="收件人地址" rules="required" v-slot="{ errors,classes }">
+                <div class="form-group">
+                  <label for="useraddress">收件人地址</label>
+                  <input type="text" class="form-control" :class="classes" name="address" id="useraddress" v-model="form.user.address"
+                    placeholder="請輸入地址">
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </div>
+              </Validation-provider>
+            
+              <div class="form-group">
+                <label for="comment">留言</label>
+                <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message" placeholder="有任何問題請留言"></textarea>
+              </div>
+              <div class="text-right">
+                <button class="btn btn-danger" type="submit" :disabled="invalid">送出訂單</button>
+              </div>
+          </form>
+        </div>
+      </Validation-observer>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,6 +169,15 @@ export default({
       status: {
         loadingItem: '',
         loadingCart: '',
+      },
+      form: {
+        "user": {
+          "name": "",
+          "email": "",
+          "tel": "",
+          "address": ""
+        },
+        "message": ""
       },
       pagination: {},
       cart: {},
@@ -200,7 +259,16 @@ export default({
       this.$http.post(api,coupon).then((response) => {
         console.log(response.data);
       })
-    }
+    },
+
+    creatOrder() {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
+      const vm = this;
+
+      this.$http.post(api, {"data":vm.form} ).then((response) => {
+        console.log(response.data);
+      })
+    },
   },
   
   computed: {
