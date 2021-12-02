@@ -6,6 +6,7 @@ import Products from '@/components/pages/products';
 import Order from '@/components/pages/orders';
 import Coupon from '@/components/pages/coupon';
 import Customer from '@/components/pages/customerOrder';
+import CheckOut from '@/components/pages/customerCheckOut';
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
           path: '/customer_order',
           name: 'customerOrder',
           component: Customer,
+        },
+        {
+          path: '/customer_checkout/:orderId',
+          name: 'customerCheckOut',
+          component: CheckOut,
         },
       ]
     }

@@ -73,7 +73,7 @@
       <!-- 表格 -->
       <Validation-observer v-slot="{ invalid }">
         <div class="my-5 row justify-content-center">
-          <form class="col-8" @click.prevent="creatOrder">
+          <form class="col-8">
               <Validation-provider name="email" rules="required|email" v-slot="{ errors,classes }">
                 <div class="form-group">
                   <label for="useremail">Email</label>
@@ -114,7 +114,7 @@
                 <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message" placeholder="有任何問題請留言"></textarea>
               </div>
               <div class="text-right">
-                <button class="btn btn-danger" type="submit" :disabled="invalid">送出訂單</button>
+                <button class="btn btn-danger" type="submit" :disabled="invalid" @click.prevent="creatOrder">送出訂單</button>
               </div>
           </form>
         </div>
@@ -267,6 +267,7 @@ export default({
 
       this.$http.post(api, {"data":vm.form} ).then((response) => {
         console.log(response.data);
+        this.$router.push(`/customer_checkout/${response.data.orderId}`);
       })
     },
   },
