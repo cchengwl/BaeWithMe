@@ -4,11 +4,13 @@
       <h1 class="h3 mb-3 fw-normal">請先登入</h1>
 
       <div class="form-floating">
-        <input type="email" class="form-control" v-model="user.username" id="floatingInput" placeholder="name@example.com">
+        <input type="text" class="form-control" v-model="user.username" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
       </div>
-      <div class="form-floating">
+      <div class="form-floating form2">
         <input type="password" class="form-control" v-model="user.password" id="floatingPassword" placeholder="Password">
+        <span v-if="eye" class="eye"><i class="fas fa-eye-slash" @click="openEye"></i></span>
+        <span v-else class="eye"><i class="far fa-eye" @click="openEye"></i></span>
         <label for="floatingPassword">Password</label>
       </div>
 
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
   name: 'HelloWorld',
   data () {
@@ -31,7 +35,8 @@ export default {
       user: {
         username: '',
         password: ''
-      }
+      },
+      eye: true,
     }
   },
   methods: {
@@ -50,6 +55,17 @@ export default {
           console.log('登入失敗')
         }
       })
+    },
+
+    openEye() {
+      if( $('#floatingPassword').attr('type') === 'text'){
+        $('#floatingPassword').attr('type','password');
+        this.eye = true;
+      }else{
+        $('#floatingPassword').attr('type','text');
+        this.eye = false;
+      }
+      
     }
   }
 }
@@ -95,5 +111,24 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form2{
+  position: relative;
+}
+
+.form-control{
+  margin-bottom: 5px;
+}
+
+#floatingPassword{
+  margin-bottom: 5px;
+  border-radius: .25rem;
+}
+
+.eye{
+  position: absolute;
+  top: 9px;
+  right: 9px;
 }
 </style>
