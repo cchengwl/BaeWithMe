@@ -46,8 +46,6 @@
                 <input type="text" class="form-control" id="create_date" v-model="tempOrder.create_at" disabled>
               </div>
               <div>
-                <span>應付金額</span>
-                <span>{{tempOrder.total}}</span>
                 <span>付款狀態</span>
                 <span class="badge badge-success" v-if="tempOrder.is_paid">已付款</span>
                 <span class="badge badge-danger" v-else>未付款</span>

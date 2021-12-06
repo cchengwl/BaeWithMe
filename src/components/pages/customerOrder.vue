@@ -257,7 +257,7 @@ export default({
       }
 
       this.$http.post(api,coupon).then((response) => {
-        console.log(response.data);
+        vm.getCart();
       })
     },
 
