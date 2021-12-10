@@ -1,0 +1,55 @@
+footer{
+  padding: 70px 30px;
+  color: $tiffany;
+  .container{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: 100%;
+    @include mediaquery_phone {
+      flex-direction: column;
+    }
+    div{
+      margin: 0 30px;
+      @include mediaquery_phone {
+        margin: 0 60px;
+      }
+      h6{
+        font-weight: bold;
+        font-size: $custom--h6;
+      }
+      ul{
+        padding: 0;
+      }
+      li{
+        list-style: none;
+      }
+      a{
+        display: block;
+        color: $custom--white;
+        margin-bottom: 7px;
+        font-size: $custom--footer;
+      }
+      p{
+        color: $custom--white;
+        font-size: $custom--footer;
+      }
+      input{
+        border-radius: 0;
+        color: $custom--black;
+        border-color:rgba(255,255,255,0.1);
+        background: 0 0;
+        font-size: $custom--footer;
+      }
+      button{
+        width: 100%;
+        margin-top: 10px;
+        color: $custom--white;
+        font-size: $custom--footer;
+      }
+    }
+  }
+  .footer-logo{
+    flex-grow: 1;
+  }
+}

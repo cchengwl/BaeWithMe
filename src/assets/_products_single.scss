@@ -1,0 +1,48 @@
+.main_products_single {
+  padding: 0 0 0 80px;
+  display: flex;
+  @include mediaquery_phone {
+    flex-direction: column;
+    padding: 0;
+  }
+  &_img {
+    width: 40%;
+    @include mediaquery_phone {
+      width: 100%;
+    }
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &_detail {
+    width: calc(100% - 40%);
+    margin-left: 30px;
+    @include mediaquery_phone {
+      width: 100%;
+      margin: 50px auto;
+    }
+    h6 {
+      font-size: $custom--h6;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    span {
+      font-size: $custom--h4;
+    }
+    p {
+      font-size: $custom--normal--size;
+      width: 100%;
+      margin: 50px 0;
+      @include mediaquery_phone {
+        margin: 30px 0;
+      }
+    }
+    div {
+      margin: 30px 0;
+      @include mediaquery_phone {
+        margin: 15px 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+$font-path:'~@/fonts/Raleway-VariableFont_wght.ttf';
+
+@font-face {
+  font-family: 'Raleway';
+  src: url($font-path) format('truetype');
+  font-weight: normal;
+  font-size: normal;
+}

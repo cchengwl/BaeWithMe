@@ -8,13 +8,41 @@ import Coupon from '@/components/pages/coupon';
 import Customer from '@/components/pages/customerOrder';
 import CheckOut from '@/components/pages/customerCheckOut';
 
+import Home from '@/components/front_pages/Index';
+import front_Products from '@/components/front_Products';
+import front_Products_all from '@/components/front_pages/products_all';
+import front_Products_single from '@/components/front_pages/products_single';
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '*',
-      redirect: '/login'
+      redirect: '/'
+    },
+    {
+      path: '/',
+      name: 'home',
+      component: Home,
+    },
+    {
+      path: '/product',
+      name: 'front_Products',
+      component: front_Products,
+      redirect: '/products',
+      children: [
+        {
+          path: '/products',
+          name: 'front_Products_all',
+          component: front_Products_all,
+        },
+        {
+          path: '/products/productId',
+          name: 'front_Products_single',
+          component: front_Products_single,
+        },
+      ]
     },
     {
       path: '/login',

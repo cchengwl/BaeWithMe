@@ -9,12 +9,14 @@ import 'bootstrap';
 import { ValidationObserver, ValidationProvider, extend, localize, configure } from 'vee-validate';
 import TW from 'vee-validate/dist/locale/zh_TW.json'
 import * as rules from 'vee-validate/dist/rules';
+import VueCarousel from 'vue-carousel';
 
 import App from './App';
 import router from './router';
 import './bus';
 import currencyFilter from './filters/currency';
 
+Vue.use(VueCarousel);
 Vue.use(VueAxios,axios);
 Vue.config.productionTip = false;
 

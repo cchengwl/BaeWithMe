@@ -1,6 +1,15 @@
 @import "~bootstrap/scss/functions";
 @import "./helpers/variables"; // 載入自定義變數
 @import "~bootstrap/scss/bootstrap";
+@import "~hamburgers/_sass/hamburgers/hamburgers";
+@import './helpers/custom-Variable';
+@import './helpers/custom-components';
 
 
 @import "./dashboard";
+@import "./helpers/fonts";
+@import "./navbar";
+@import "./footer";
+@import "./index";
+@import "./products_all";
+@import "./products_single";

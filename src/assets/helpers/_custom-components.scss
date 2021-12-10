@@ -1,0 +1,28 @@
+// button
+.add_to_cart_button {
+  width: 100%;
+  border: 1px solid $custom--black;
+  background-color: $custom--white;
+  padding: 6px auto;
+  &:hover{
+    background-color: $custom--black;
+    color:$custom--white;
+  }
+}
+
+.qty_button {
+  border: 1px solid $custom--black;
+  background-color: $custom--white;
+  padding: 6px auto;
+  &:hover{
+    background-color: $custom--black;
+    color:$custom--white;
+  }
+}
+
+// input
+.qty_input {
+  width: 50px;
+  padding: 0 2px;
+  text-align: center;
+}

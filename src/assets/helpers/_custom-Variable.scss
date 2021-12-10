@@ -1,0 +1,42 @@
+// font-size
+$custom--h1: 3rem; // 48px
+$custom--h2: 2.25em; // 36px
+$custom--h3: 1.875rem;  // 30px
+$custom--h4: 1.75rem; // 28px
+$custom--h5: 1.25rem; // 20px
+$custom--h6: 1rem;  // 16px
+
+$custom--normal--size: 13px;
+$custom--footer: 12px;
+
+$custom--h1--phone: 1.5rem; // 24px
+
+// color
+$custom--black: #222;
+$custom--white: #FFF;
+$custom--grey: #DDD; // a:hover
+$custom--green: $tiffany;
+
+// width
+$width-sm: 540px;
+$width-md: 720px;
+$width-lg: 960px;
+$width-xl: 1140px;
+
+@mixin mediaquery_phone{
+  @media all and (max-width: $width-md){
+    @content;
+  }
+}
+
+@mixin mediaquery_pad{
+  @media all and (max-width: $width-lg){
+    @content;
+  }
+}
+
+@mixin mediaquery_pad_minWidth{
+  @media all and (min-width: 961px){
+    @content;
+  }
+}
