@@ -1,0 +1,16 @@
+.cart_checkout {
+
+  h5 {
+    padding: 30px 0;
+    font-weight: bold;
+  }
+
+  &_delivery {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    @include mediaquery_phone {
+      width: 100%;
+    }
+  }
+}

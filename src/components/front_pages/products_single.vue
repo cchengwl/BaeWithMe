@@ -1,9 +1,9 @@
 <template>
-  <div class="main_products_single">
-    <div class="main_products_single_img">
+  <div class="product_single">
+    <div class="product_single_img">
       <img src="https://cdn.pixabay.com/photo/2016/05/13/19/30/girl-with-a-cloth-1390693_1280.jpg" alt="">
     </div>
-    <div class="main_products_single_detail">
+    <div class="product_single_detail">
       <h6>PRODUCT NAME</h6>
       <span>$1222</span>
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>

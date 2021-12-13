@@ -1,60 +1,57 @@
-body {
-  font-family: 'Raleway';
+.index_header {
   background: $custom--black;
-  margin: 0;
-  font-size: 16px;
-  color: $custom--black;
-}
 
-.container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 2em;
-}
-
-header {
-  position: relative;
-  height: 520px;
-  z-index: 2;
-  background-image: url('https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_1280.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  @include mediaquery_phone {
-    height: 300px;
-  }
-  h1 {
-    position: absolute;
-    left: 50px;
-    bottom: 50px;
-    font-size: $custom--h1;
-    text-transform: uppercase;
-    text-align: center;
-    color: $custom--white;
+  header {
+    position: relative;
+    height: 520px;
+    z-index: 2;
+    background-image: url('https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_1280.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     @include mediaquery_phone {
-      font-size: $custom--h1--phone;
+      height: 300px;
+    }
+    h1 {
+      position: absolute;
+      left: 50px;
+      bottom: 50px;
+      font-size: $custom--h1;
+      text-transform: uppercase;
+      text-align: center;
+      color: $custom--white;
+      @include mediaquery_phone {
+        font-size: $custom--h1--phone;
+      }
     }
   }
 }
 
-#about{
-  color: $custom--white;
+#index_about{
+  background-color: $custom--black;
   padding: 5em;
   h2{
     font-size: $custom--h2;
     padding: 20px 0;
+    color: $custom--white;
+  }
+  p{
+    color: $custom--white;
   }
 }
 
-main{
+.index_main{
+  max-width: 1140px;
   background-color: $custom--white;
   margin: 0 auto;
   padding-bottom: 150px;
-  .container_title{
+
+  &_title{
     text-align: center;
     padding: 80px 0 30px 0;
   }
-  .container_category{
+  
+  &_category{
     font-size: 0;
     @include mediaquery_phone{
       display: flex;
@@ -115,7 +112,7 @@ main{
   }
 }
 
-#album{
+#index_album{
   width: 100%;
   border-top: 5px solid $custom--black;
 }

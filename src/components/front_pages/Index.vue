@@ -1,97 +1,95 @@
 <template>
   <div>
     <front-navbar/>
-    <header>
-      <div class="container">
-        <h1>Where to we go next?</h1>
-      </div>
-    </header>
-    <section id="about">
+    <div class="index_header">
+      <header>
+        <div class="container">
+          <h1>Where to we go next?</h1>
+        </div>
+      </header>   
+    </div>
+    <section id="index_about">
       <div class="container">
         <h2>世界這麼大，下一站，你想去哪？</h2>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
       </div>
-    </section>
-    <main>
-      <div class="container">
-        <h3 class="container_title">商品推薦</h3>
-        <carousel
-          :autoplay="true"
-          :autoplayHoverPause="true"
-          :perPageCustom="[
-            [480, 1],
-            [768, 3],
-            [1024, 4],
-          ]"
-        >
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-          <slide>
-            <a href="#">
-              <img
-                src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
-                alt="彩繪枕頭"
-                style="width: 200px; height: 200px"
-              />
-            </a>
-          </slide>
-        </carousel>
-      </div>
+    </section>       
+    <main class="index_main">
+      <h3 class="index_main_title">商品推薦</h3>
+      <carousel
+        :autoplay="true"
+        :autoplayHoverPause="true"
+        :perPageCustom="[
+          [480, 1],
+          [768, 3],
+          [1024, 4],
+        ]"
+      >
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+        <slide>
+          <a href="#">
+            <img
+              src="https://cdn.shopify.com/s/files/1/1234/1342/products/Gifts_HT_Snowstorm_Survival_Guide_2020_80425_5000x.jpg?v=1606497109"
+              alt="彩繪枕頭"
+              style="width: 200px; height: 200px"
+            />
+          </a>
+        </slide>
+      </carousel>
       <hr>
-      <div class="container">
-        <h3 class="container_title">產品類別</h3>
-        <div class="container_category">
-          <a href="#"><div class="biggest_up"><h4>背包</h4></div></a>
-          <a href="#"><div class="small_down"><h4>配件</h4></div></a>
-          <a href="#"><div class="small_down"><h4>配件</h4></div></a>
-          <a href="#"><div class="small_down"><h4>配件</h4></div></a>
-        </div>
+      <h3 class="index_main_title">產品類別</h3>
+      <div class="index_main_category">
+        <a href="#"><div class="biggest_up"><h4>背包</h4></div></a>
+        <a href="#"><div class="small_down"><h4>配件</h4></div></a>
+        <a href="#"><div class="small_down"><h4>配件</h4></div></a>
+        <a href="#"><div class="small_down"><h4>配件</h4></div></a>
       </div>
     </main>
-    <section id="album">
+    <section id="index_album">
         <carousel
           :autoplay="true"
           :autoplayHoverPause="true"

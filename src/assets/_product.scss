@@ -1,0 +1,68 @@
+
+.product_article{
+  width: 100%;
+  height: 150px;
+  background-image: url('https://cdn.pixabay.com/photo/2016/11/19/08/00/towel-1838210_1280.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  color: $custom--white;
+  text-align: center;
+  h4{
+    width: 100%;
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: $custom--h4;
+  }
+  p{
+    width: 100%;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  &_mask {
+    width: 100%;
+    height: 150px;
+    background: hsla(0,0,0,.5);
+  }
+}
+
+.product_content{
+  background-color: #FFF;
+  display: flex;
+  margin: 0 auto;
+  max-width: 1140px;
+  @include mediaquery_phone {
+    flex-direction: column;
+  }
+
+  aside{
+    padding: 20px 0;
+    font-size: 13px;
+    flex: 0 1 20%;
+    @include mediaquery_phone {
+      text-align: center;
+    }
+    h6{
+      font-weight: bold;
+    }
+    ul{
+      margin-top: 4px;
+    }
+    li{
+      padding: 3px 0;
+    }
+    a{
+      font-size: 14px;
+    }
+  }  
+}
+
+.product_main{
+  padding: 20px 0;
+  flex-grow: 1;
+}

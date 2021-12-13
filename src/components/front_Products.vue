@@ -1,9 +1,9 @@
 <template>
   <div>
     <front-navbar/>
-        <div class="nav_margin">
-      <article>
-        <div class="mask"></div>
+      <div class="product_nav_margin">
+      <article class="product_article">
+        <div class="product_article_mask"></div>
         <div class="container">
           <h4>Products</h4>
           <p>
@@ -13,21 +13,19 @@
         </div>
       </article>
     </div>
-    <div class="content">
-      <div class="container">
-        <aside>
-          <h6>CATEGORIES</h6>
-          <ul>
-            <li><router-link to="/products">Backpack</router-link></li>
-            <li><router-link to="/products">Jacket</router-link></li>
-            <li><router-link to="/products">Sun glasses</router-link></li>
-            <li><router-link to="/products">Tools</router-link></li>
-          </ul>
-        </aside>
-        <main>
-          <router-view/>
-        </main>
-      </div>
+    <div class="product_content">
+      <aside>
+        <h6>CATEGORIES</h6>
+        <ul>
+          <li><router-link to="/products">Backpack</router-link></li>
+          <li><router-link to="/products">Jacket</router-link></li>
+          <li><router-link to="/products">Sun glasses</router-link></li>
+          <li><router-link to="/products">Tools</router-link></li>
+        </ul>
+      </aside>
+      <main class="product_main">
+        <router-view/>
+      </main>
     </div>
     <front-footer/>
   </div>

@@ -5,11 +5,14 @@
 @import './helpers/custom-Variable';
 @import './helpers/custom-components';
 
-
+@import "./common";
 @import "./dashboard";
 @import "./helpers/fonts";
 @import "./navbar";
 @import "./footer";
 @import "./index";
+@import "./product";
 @import "./products_all";
 @import "./products_single";
+@import "./cart";
+@import "./cart_checkout";

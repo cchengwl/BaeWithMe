@@ -1,0 +1,82 @@
+.cart_main {
+  max-width: 1140px;
+  margin: 0 auto;
+
+  &_table {
+    h6 {
+      font-weight: bold;
+    }
+  
+    &_head {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px;
+      @include mediaquery_phone {
+        display: none;
+      }
+    }
+  
+    &_body_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #878787;
+      padding: 20px 30px;
+      @include mediaquery_phone {
+        flex-wrap: wrap;
+      }
+  
+      &:hover {
+        background-color: $gray-300;
+      }
+  
+      &_img {
+        width: 100px;
+        display: inline-block;
+        margin-right: 10px;
+        a {
+          width: 100%;
+        }
+        img {
+          width: 100%;
+        }
+      }
+      
+      &_detail {
+        display: inline-block;
+        vertical-align: middle;
+      }
+  
+      &_phone1, &_phone2{
+        @include mediaquery_phone {
+          width: 100%;
+        }
+      }
+  
+      &_phone2 {
+        @include mediaquery_phone {
+          margin-left: 110px;
+          text-align: start !important;
+          padding: 5px 0;
+        }
+      }
+    }
+  
+    &_foot {
+      border-top: 1px solid #878787;
+      padding: 20px 30px;
+      text-align: end;
+  
+      div {
+        padding: 5px;
+      }
+  
+      button {
+        margin: 20px 0; 
+        i {
+          margin-left: 0 5px;
+        }
+      }
+    }  
+  }
+}

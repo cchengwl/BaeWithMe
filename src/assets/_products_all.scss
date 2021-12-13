@@ -1,94 +1,4 @@
-.nav_margin{
-  margin-top: 5em;
-}
-
-ul{
-  padding: 0;
-}
-
-li{
-  list-style: none;
-}
-
-a{
-  text-decoration: none;
-  color: #666666;
-  &:hover{
-    text-decoration: none;
-  }
-}
-
-article{
-  width: 100%;
-  height: 150px;
-  background-image: url('https://cdn.pixabay.com/photo/2016/11/19/08/00/towel-1838210_1280.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  color: $custom--white;
-  text-align: center;
-  h4{
-    width: 100%;
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-size: $custom--h4;
-  }
-  p{
-    width: 100%;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-  }
-}
-
-.mask{
-  width: 100%;
-  height: 150px;
-  background: hsla(0,0,0,.5);
-}
-
-.content{
-  width: 100%;
-  background-color: #FFF;
-  .container{
-    display: flex;
-    @include mediaquery_phone {
-      flex-direction: column;
-    }
-  }
-}
-
-aside{
-  padding: 20px 0;
-  font-size: 13px;
-  flex: 0 1 20%;
-  @include mediaquery_phone {
-    text-align: center;
-  }
-  h6{
-    font-weight: bold;
-  }
-  ul{
-    margin-top: 4px;
-  }
-  li{
-    padding: 3px 0;
-  }
-  a{
-    font-size: 14px;
-  }
-}
-
-main{
-  // border: 1px solid green;
-  padding: 20px 0;
-  flex-grow: 1;
-}
-
-.main_filter{
+.product_all_main_filter{
   text-align: end;
   font-size: 12px;
   label{
@@ -100,33 +10,33 @@ main{
   }
 }
 
-.main_products{
-  // border: 1px solid red;
+.product_all_main_products{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 20px;
+
   &_intro{
-    // border:1px solid green;
     text-align: center;
     flex: 0 0 33%;
     padding: 0 10px 80px 10px;
     @include mediaquery_phone{
       flex: 0 0 50%;
     }
+    
+    &_img{
+      width: 100%;
+      height: 300px;
+      img{
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
     p{
       font-size: $custom--normal--size;
       padding: 8px 0 3px 0;
       margin: 0 auto;
-    }
-  }
-
-  &_intro_img{
-    width: 100%;
-    height: 300px;
-    img{
-      max-width: 100%;
-      max-height: 100%;
     }
   }
 }
