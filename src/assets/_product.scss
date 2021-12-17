@@ -56,8 +56,16 @@
     li{
       padding: 3px 0;
     }
-    a{
+    button{
+      background: none;
+      border: none;
+      cursor: pointer;
       font-size: 14px;
+      color: #666666;
+
+      &:hover {
+        color: $link-hover-color;
+      }
     }
   }  
 }

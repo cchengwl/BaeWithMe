@@ -40,7 +40,7 @@ export default new Router({
           component: front_Products_all,
         },
         {
-          path: '/products/productId',
+          path: '/products/:id',
           name: 'front_Products_single',
           component: front_Products_single,
         },

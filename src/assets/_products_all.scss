@@ -13,8 +13,8 @@
 .product_all_main_products{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin-top: 20px;
+  padding-left: (100%-99%);
 
   &_intro{
     text-align: center;

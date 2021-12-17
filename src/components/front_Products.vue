@@ -17,14 +17,14 @@
       <aside>
         <h6>CATEGORIES</h6>
         <ul>
-          <li><router-link to="/products">Backpack</router-link></li>
-          <li><router-link to="/products">Jacket</router-link></li>
-          <li><router-link to="/products">Sun glasses</router-link></li>
-          <li><router-link to="/products">Tools</router-link></li>
+          <li><button @click="getCategory(null)">全部商品</button></li>
+          <li><button @click="getCategory('backpack')">背包</button></li>
+          <li><button @click="getCategory('shoes')">鞋子</button></li>
+          <li><button @click="getCategory('accessory')">配件</button></li>
         </ul>
       </aside>
       <main class="product_main">
-        <router-view/>
+        <router-view :products="products" :pagination="pagination" :filterProducts="filterProducts" @page="getProducts"/>
       </main>
     </div>
     <front-footer/>
@@ -37,5 +37,66 @@ import frontFooter from "./front_Footer.vue";
 
 export default {
   components: { frontNavbar, frontFooter },
+  
+  data() {
+    return {
+      allProducts: [],
+      products: [],
+      pagination: {},
+      filterProducts: [],
+    }
+  },
+
+  methods: {
+    getAllProducts() {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
+      
+      this.$http.get(api).then((response) => {
+        vm.allProducts = response.data.products;
+      })
+    },
+
+    getProducts(page = 1) {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
+
+      this.$http.get(api).then((response) => {
+        vm.products = response.data.products;
+        vm.filterProducts = vm.products;
+        vm.pagination = response.data.pagination;
+      })
+    },
+
+    getCategory(item) {
+      const vm = this;
+      vm.pagination.category = item;
+
+      if(vm.pagination.category !== null) {
+        this.$router.push({
+          name: 'front_Products_all',
+          query: {
+            category: item
+          }
+        }).catch(() => {});
+
+        vm.filterProducts = vm.allProducts.filter(item => {
+          return item.category === vm.pagination.category;
+        })
+
+      } else if(vm.pagination.category === null){
+        this.$router.push({
+          name: 'front_Products_all',
+        }).catch(() => {});
+
+        return vm.filterProducts = vm.products;
+      }
+    },
+  },
+
+  created() {
+    this.getProducts();
+    this.getAllProducts();
+  }  
 };
 </script>

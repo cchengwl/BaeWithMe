@@ -5,51 +5,47 @@
         <option value="Price">Price(Low to High)</option></select>
     </div>
     <div class="product_all_main_products">         
-      <div class="product_all_main_products_intro">
-        <router-link :to="{ name:'front_Products_single' }">
+      <div class="product_all_main_products_intro" v-for="item in filterProducts" :key="item.id">
+        <router-link :to="{ path:`/products/${item.id}` }">
           <div class="product_all_main_products_intro_img">
-            <img src="https://cdn.pixabay.com/photo/2016/05/13/19/30/girl-with-a-cloth-1390693_1280.jpg" alt="產品">
+            <img :src="item.imageUrl">
           </div>
-          <p>Product Name</p>
-          <span>NT$200</span>
+          <p>{{item.title}}</p>
+          <span>{{item.price}}</span>
           <button class="add_to_cart_button">ADD TO CART</button>
         </router-link>
       </div>
-      <div class="product_all_main_products_intro">
-        <a href="#">
-          <div class="product_all_main_products_intro_img">
-            <img src="https://cdn.pixabay.com/photo/2014/04/03/09/57/zebra-309425_1280.png" alt="產品">
-          </div>
-          <p>Product Name</p>
-          <span>NT$200</span>
-          <button class="add_to_cart_button">ADD TO CART</button>
-        </a>
-      </div>
-      <div class="product_all_main_products_intro">
-        <a href="#">
-          <div class="product_all_main_products_intro_img">
-            <img src="https://cdn.pixabay.com/photo/2016/05/13/19/30/girl-with-a-cloth-1390693_1280.jpg" alt="產品">
-          </div>
-          <p>Product Name</p>
-          <span>NT$200</span>
-          <button class="add_to_cart_button">ADD TO CART</button>
-        </a>
-      </div>
-      <div class="product_all_main_products_intro">
-        <a href="#">
-          <div class="product_all_main_products_intro_img">
-            <img src="https://cdn.pixabay.com/photo/2014/04/03/09/57/zebra-309425_1280.png" alt="產品">
-          </div>
-          <p>Product Name</p>
-          <span>NT$200</span>
-          <button class="add_to_cart_button">ADD TO CART</button>
-        </a>
-      </div>
     </div>
+
+    <!-- 分頁標籤 -->
+    <nav aria-label="Page navigation example" v-if="pagination.category === null">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ 'disabled':!pagination.has_pre }">
+          <a class="page-link" href="#" @click.prevent="getProducts(pagination.current_page - 1)">Previous</a>
+        </li>
+        <li class="page-item" :class="{ 'active':page === pagination.current_page }" v-for="page in pagination.total_pages" :key="page">
+          <a class="page-link" href="#" @click.prevent="getProducts(page)">{{page}}</a>
+        </li>
+        <li class="page-item" :class="{ 'disabled':!pagination.has_next }">
+          <a class="page-link" href="#" @click.prevent="getProducts(pagination.current_page + 1)">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['products','pagination','filterProducts'],
+
+  methods: {
+    getProducts(page = 1) {
+      this.$emit('page', page);
+    },
+  },
+
+  created() {
+    this.getProducts();
+  }
 };
 </script>
