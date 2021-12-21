@@ -8,9 +8,9 @@
       <span>{{product.price}}</span>
       <p>{{product.description}}</p>
       <div>
-        <button class="qty_button">-</button><input type="text" class="qty_input" v-model="qty"><button class="qty_button">+</button>
+        <button class="qty_button" @click="qtyButton('minus')" :disabled="qty <= 1">-</button><input type="text" class="qty_input" v-model="qty"><button class="qty_button" @click="qtyButton('plus')" :disabled="qty >= 10">+</button>
       </div>
-      <button class="add_to_cart_button">ADD TO CART</button>
+      <button class="add_to_cart_button" @click="addToCart">ADD TO CART</button>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   components: { frontNavbar, frontFooter },
   data() {
     return {
-      qty: 0,
+      qty: 1,
       product: {},
     }
   },
@@ -36,8 +36,29 @@ export default {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
     
       this.$http.get(api).then((response) => {
-        console.log(response.data.product);
         vm.product = response.data.product;
+      })
+    },
+
+    qtyButton(count) {
+      if(count === 'plus') {
+        this.qty ++;
+      }else {
+        this.qty --;
+      }
+    },
+    
+    addToCart() {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+
+      let cart = {
+        "product_id": vm.product.id,
+        "qty": vm.qty
+      }
+
+      this.$http.post(api, { data : cart}).then((response) => {
+        this.$bus.$emit('update:cart');
       })
     }
   },

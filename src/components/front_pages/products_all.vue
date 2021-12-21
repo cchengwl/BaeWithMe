@@ -12,7 +12,7 @@
           </div>
           <p>{{item.title}}</p>
           <span>{{item.price}}</span>
-          <button class="add_to_cart_button">ADD TO CART</button>
+          <button class="add_to_cart_button">查看更多</button>          
         </router-link>
       </div>
     </div>
@@ -42,6 +42,20 @@ export default {
     getProducts(page = 1) {
       this.$emit('page', page);
     },
+
+    addToCart(id , qty) {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+
+      let cart = {
+        "product_id": id,
+        "qty": qty
+      }
+
+      this.$http.post(api, { data : cart}).then((response) => {
+        this.$bus.$emit('update:cart');
+      })
+    }
   },
 
   created() {

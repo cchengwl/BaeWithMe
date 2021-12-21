@@ -14,3 +14,19 @@
     }
   }
 }
+
+#orderModal {
+  h5 {
+    text-align: center;
+  }
+
+  h6 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  i {
+    color: $success;
+    margin: 0 5px;
+  }
+}

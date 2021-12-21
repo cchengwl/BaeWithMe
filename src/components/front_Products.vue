@@ -54,6 +54,10 @@ export default {
       
       this.$http.get(api).then((response) => {
         vm.allProducts = response.data.products;
+
+        vm.allProducts = vm.allProducts.filter((item) => {
+          return item.is_enabled === 1;
+        })        
       })
     },
 
@@ -63,6 +67,11 @@ export default {
 
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
+
+        vm.products = vm.products.filter((item) => {
+          return item.is_enabled === 1;
+        })
+
         vm.filterProducts = vm.products;
         vm.pagination = response.data.pagination;
       })
