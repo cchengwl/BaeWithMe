@@ -106,6 +106,10 @@ export default {
   created() {
     this.getProducts();
     this.getAllProducts();
-  }  
+
+    this.$bus.$on('getCategory', item => {
+      this.getCategory(item);
+    })
+  },
 };
 </script>

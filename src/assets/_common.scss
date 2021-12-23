@@ -1,6 +1,6 @@
-* {
-  font-family: 'Raleway';
-}
+// * {
+//   font-family: 'Raleway';
+// }
 
 .container {
   max-width: 1140px;
@@ -14,10 +14,14 @@
 
 ul{
   padding: 0;
+  li{
+    list-style: none;
+  }
 }
 
-li{
-  list-style: none;
+button {
+  border: none;
+  background: none;
 }
 
 a{

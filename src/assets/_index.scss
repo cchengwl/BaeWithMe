@@ -1,113 +1,249 @@
-.index_header {
-  background: $custom--black;
+.index_banner {
+  width: 100%;
+  height: 400px;
+  background-image: url('https://wolftea.com/wp-content/uploads/2020/03/teagift-3.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-  header {
+.index_category {
+  text-align: center;
+  margin: 40px 0;
+  h3 {
+    font-size: 28px;
+    padding: 10px 0;
+    border-bottom: 4px solid $custom--main;
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  i{
+    color: red;
+  }
+}
+
+.index_category_flex {
+  display: flex;
+  justify-content: space-around;
+  margin: 50px 20px;
+
+  @include mediaquery_phone {
+    flex-wrap: wrap;
+    margin: 50px auto;
+  }
+
+  button {
+    border: none;
+    background: none;
+  }
+}
+
+.index_category_flex_item {
+  div{
+    border:1px dashed black;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 3px;
     position: relative;
-    height: 520px;
-    z-index: 2;
-    background-image: url('https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_1280.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    @include mediaquery_phone {
-      height: 300px;
-    }
-    h1 {
-      position: absolute;
-      left: 50px;
-      bottom: 50px;
-      font-size: $custom--h1;
-      text-transform: uppercase;
-      text-align: center;
-      color: $custom--white;
-      @include mediaquery_phone {
-        font-size: $custom--h1--phone;
-      }
-    }
-  }
-}
-
-#index_about{
-  background-color: $custom--black;
-  padding: 5em;
-  h2{
-    font-size: $custom--h2;
-    padding: 20px 0;
-    color: $custom--white;
-  }
-  p{
-    color: $custom--white;
-  }
-}
-
-.index_main{
-  max-width: 1140px;
-  background-color: $custom--white;
-  margin: 0 auto;
-  padding-bottom: 150px;
-
-  &_title{
-    text-align: center;
-    padding: 80px 0 30px 0;
-  }
   
-  &_category{
-    font-size: 0;
-    @include mediaquery_phone{
-      display: flex;
-      flex-direction: column;
+    &:hover {
+      animation: rotate 10s linear infinite;
     }
-    div{
-      font-size: 30px;
-      color: $custom--white;
-      position: relative;
-      margin:0 5px;
-      display: inline-block;
-      width: calc(33% - 10px);
-      height: 200px;
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-image: url('https://cdn.pixabay.com/photo/2018/03/29/21/04/knowledge-3273685_1280.jpg');
-      &:hover{
-        transform: perspective(250px) translateZ(15px);
-        border: 3px solid $custom--green;
-      }
-      @include mediaquery_phone{
-        width: 100%;
-        height: 200px;
-        margin: 10px auto;
+  
+    &:before {
+      content: "";
+      display: block;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: brown;
+    }
+  }
+
+  &:nth-child(2) {
+    div {
+      &:before {
+        background-color:#C3D825;
       }
     }
-    h4{
+  }
+
+  &:nth-child(3) {
+    div {
+      &:before {
+        background-color:#FFF;
+      }
+    }
+  }
+
+  &:nth-child(4) {
+    div {
+      &:before {
+        background-color:#383d43;
+      }
+    }
+  }
+
+  &:nth-child(5) {
+    div {
+      &:before {
+        background-color:#E6BE71;
+      }
+    }
+  }
+
+  &:nth-child(6) {
+    div {
+      &:before {
+        background-color:#B180E6;
+      }
+    }
+  }
+
+  span {
+    display: block;
+  }
+}
+
+.index_latest {
+  height: 500px;
+  padding: 40px 0;
+  @include mediaquery_pad {
+    height: auto;
+    padding: 0;
+  }
+
+  &_flex {
+    margin: 50px 20px;
+  }
+
+  h3 {
+    font-size: 28px;
+    padding: 10px 0;
+    border-bottom: 4px solid $custom--main;
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &_item {
+    display: inline-block;
+    position: relative;
+    border: 1px solid $gray-300;
+    padding: 20px;
+    height: 330px;
+    transition: all .5s ease-in;
+
+    &:hover &_more {
+      margin-top: 30px;
+      display: block;
+    }
+
+    @include mediaquery_phone {
+      height: 380px;
+    }
+
+    &_more {
+      margin-top: 10px;
+      display: none;
+      border: none;
+      background: $custom--secondary;
+      color: white;
+      padding: 5px 30px;
+      border-radius: 20px;
       position: absolute;
-      bottom: 10px;
-      right: 20px;
-      color: $custom--white;
-      font-size: $custom--h4;
-      background-color: $custom--green;
-      border-radius: .25rem;
-      padding: 8px 20px;
-      opacity: .8;
-      &:hover{
-        transform: perspective(250px) translateZ(15px);
-        border: 3px solid $custom--green;
-        opacity: 1;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%);
+
+      @include mediaquery_phone {
+        display: block;
       }
     }
-    .biggest_up{
-      margin-bottom: 10px;
-      width: calc(99% - 10px);
-      height: 350px;
-      background-image: url('https://cdn.pixabay.com/photo/2016/11/19/14/56/backpack-1839705_1280.jpg');
-      @include mediaquery_phone{
-        width: 100%;
-        height: 200px;
+
+    &_btn {
+      position: absolute;
+      top: 11px;
+      right: 5px;
+      border: none;
+      background: none;
+      vertical-align: middle;
+
+      i {
+        font-size: 20px;
       }
-      h4{
-        bottom: 30px;
-        right: 40px;
+
+      .fas.fa-heart {
+        display: none;
       }
+    }
+
+    &_badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: $custom--secondary;
+      color: white;
+    }
+    h5 {
+      font-size: 16px;
+    }
+    p{
+      font-size: 18px;
+    }
+    &_img {
+      width: 200px;
+      margin: 0 auto;
+      img{
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    span {
+      vertical-align: middle;
+    }
+    &_price {
+      font-size: 18px;
+      margin-right: 10px;
+      font-weight: bold;
+      color: $custom--secondary;
+    }
+
+    &_origin {
+      font-size: 16px;
+      font-weight: bold;
+      color: $custom--third;
+      text-decoration: line-through;
+    }
+  }
+}
+
+.index_latest_item.index_hover {
+  &:hover {
+    height: 380px;
+  }
+}
+
+.index_intro {
+  display: flex;
+  align-items: center;
+  &_img {
+    flex: 0 0 50%;
+    img{
+      width: 100%;
+    }
+  }
+
+  h1 {
+    @include mediaquery_pad {
+      font-size: 1.5rem;
+    }
+  }
+
+  p {
+    @include mediaquery_pad {
+      font-size: 12px;
     }
   }
 }
@@ -119,4 +255,46 @@
 
 .VueCarousel{
   text-align: center;
+
+  .VueCarousel-navigation-button {
+    font-size: 28px;
+    top: 41%;
+    font-weight: bold;
+  }
+}
+
+.index_album_img {
+  max-height: 150px;
+  transition: all .5s;
+
+  @include mediaquery_phone {
+    max-height: 80px;
+  }
+}
+
+@keyframes rotate{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes h3_width{
+  from {
+    width: 0px;
+  }
+  to {
+    width: 300px;
+  }
+}
+
+@keyframes item_height {
+  from {
+    height: 330px;
+  }
+  to {
+    height: auto;
+  }
 }

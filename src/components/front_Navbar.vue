@@ -3,12 +3,11 @@
     <nav class="front_nav">
       <div class="container">
         <ul v-show="hamburgerActive">
-          <li><router-link :to="{name: 'home'}">Home</router-link></li>
-          <li><router-link :to="{name: 'front_Products_all'}">Products</router-link></li>
-          <li><button @click="openCart = !openCart">Cart</button>
-            <div class="cart_num" v-show="cartShow">{{cartQty}}</div>
+          <li><router-link :to="{name: 'home'}">首頁</router-link></li>
+          <li><router-link :to="{name: 'front_Products_all'}">品牌商品</router-link></li>
+          <li @click="openCart = !openCart">購物車
+            <!-- <div class="cart_num" v-show="cartShow">{{cartQty}}</div> -->
           </li>
-          <li><router-link to="/f&q">F&Q</router-link></li>
         </ul>
         <button class="hamburger hamburger--minus" :class="{'is-active': hamburgerActive}" @click="hamburgerActive = !hamburgerActive" type="button">
           <span class="hamburger-box">
@@ -28,7 +27,6 @@
         <button class="add_to_cart_button" @click="gotoCart">前往購物車</button>
       </div>
     </nav>
-    <div id="nav-bg"></div>
   </div>
 </template>
 
