@@ -2,7 +2,7 @@
   <div>
     <nav class="front_nav">
       <div class="container">
-        <ul v-show="hamburgerActive">
+        <ul :class="{'open': hamburgerActive}">
           <li><router-link :to="{name: 'home'}">首頁</router-link></li>
           <li><router-link :to="{name: 'front_Products_all'}">品牌商品</router-link></li>
           <li @click="openCart = !openCart">購物車

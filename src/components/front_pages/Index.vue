@@ -61,66 +61,18 @@
             [960, 3],
             [1140, 4],
           ]">
-            <slide>
+            <slide v-for="item in products" :key="item.id">
               <div class="index_latest_item index_hover">
                 <span class="badge badge-pill index_latest_item_badge">New</span>
-                <button class="index_latest_item_btn"><i class="far fa-heart"></i><i class="fas fa-heart"></i></button>
+                <button class="index_latest_item_btn" @click.prevent="starItem(item)"><i class="far fa-heart" v-if="starArray.indexOf(item.id) === -1"></i><i class="fas fa-heart" v-else></i></button>
                 <div class="index_latest_item_img">
-                  <img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568">
+                  <img :src="item.imageUrl">
                 </div>
-                <h5>聖誕季組合</h5>
-                <span class="index_latest_item_price">$1000</span><span class="index_latest_item_origin">$999</span>
+                <h5>{{item.title}}</h5>
+                <span class="index_latest_item_price">${{item.price}}</span><span class="index_latest_item_origin">${{item.origin_price}}</span>
                 <button class="index_latest_item_more">查看更多</button>
               </div>
             </slide>
-            <slide>
-              <div class="index_latest_item index_hover">
-                <span class="badge badge-pill index_latest_item_badge">New</span>
-                <button class="index_latest_item_btn"><i class="far fa-heart"></i><i class="fas fa-heart"></i></button>
-                <div class="index_latest_item_img">
-                  <img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568">
-                </div>
-                <h5>聖誕季組合</h5>
-                <span class="index_latest_item_price">$1000</span><span class="index_latest_item_origin">$999</span>
-                <button class="index_latest_item_more">查看更多</button>
-              </div>
-            </slide>
-            <slide>
-              <div class="index_latest_item index_hover">
-                <span class="badge badge-pill index_latest_item_badge">New</span>
-                <button class="index_latest_item_btn"><i class="far fa-heart"></i><i class="fas fa-heart"></i></button>
-                <div class="index_latest_item_img">
-                  <img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568">
-                </div>
-                <h5>聖誕季組合</h5>
-                <span class="index_latest_item_price">$1000</span><span class="index_latest_item_origin">$999</span>
-                <button class="index_latest_item_more">查看更多</button>
-              </div>
-            </slide>
-            <slide>
-              <div class="index_latest_item index_hover">
-                <span class="badge badge-pill index_latest_item_badge">New</span>
-                <button class="index_latest_item_btn"><i class="far fa-heart"></i><i class="fas fa-heart"></i></button>
-                <div class="index_latest_item_img">
-                  <img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568">
-                </div>
-                <h5>聖誕季組合</h5>
-                <span class="index_latest_item_price">$1000</span><span class="index_latest_item_origin">$999</span>
-                <button class="index_latest_item_more">查看更多</button>
-              </div>
-            </slide>
-            <slide>
-              <div class="index_latest_item index_hover">
-                <span class="badge badge-pill index_latest_item_badge">New</span>
-                <button class="index_latest_item_btn"><i class="far fa-heart"></i><i class="fas fa-heart"></i></button>
-                <div class="index_latest_item_img">
-                  <img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568">
-                </div>
-                <h5>聖誕季組合</h5>
-                <span class="index_latest_item_price">$1000</span><span class="index_latest_item_origin">$999</span>
-                <button class="index_latest_item_more">查看更多</button>
-              </div>
-            </slide>                                     
           </carousel>
         </div>        
       </div>
@@ -155,6 +107,7 @@
           </slide>
         </carousel>
     </section>
+    <stars/>
     <front-footer/>
   </div>
 </template>
@@ -163,9 +116,10 @@
 import $ from "jquery";
 import frontNavbar from '../front_Navbar.vue';
 import frontFooter from '../front_Footer.vue';
+import Stars from '../Stars.vue';
 
 export default {
-  components: {frontNavbar , frontFooter } ,
+  components: {frontNavbar , frontFooter, Stars } ,
   data() {
     return {
       album:[
@@ -212,12 +166,15 @@ export default {
         },
       ],
       windowWidth: 0,
+      products: [],
+      pagination: {},
+      star: [],
     }
   },
 
   methods: {
     gotoProduct(item) {
-      this.$bus.$emit('getCategory',item);
+      this.$bus.$emit('get:category',item);
 
       this.$router.push({
         name: 'front_Products_all',
@@ -225,7 +182,64 @@ export default {
         //   category: item
         // }
       }).catch(() => {});
+    },
+
+    getProducts(page = 1) {
+      const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
+
+      this.$http.get(api).then((response) => {
+        vm.products = response.data.products;
+
+        vm.products = vm.products.filter((item) => {
+          return item.is_enabled === 1;
+        })
+
+        vm.filterProducts = vm.products;
+        vm.pagination = response.data.pagination;
+      })
+    },
+
+    starItem(item) {
+      const vm = this;
+      vm.star = JSON.parse(localStorage.getItem('star'));
+
+      if(vm.star === null) {
+        vm.star = [];
+        vm.star.push(item);
+
+      }else {
+        var result = vm.star.map(function(item) {
+          return item.id
+        }).indexOf(item.id);
+
+        if(result === -1) {
+          vm.star.push(item);
+        }else {
+          vm.star.splice(result, 1);
+        }
+      }
+
+      var starJson = JSON.stringify(vm.star);
+      localStorage.setItem('star', starJson);
+
+      this.$bus.$emit('update:star');
+    },
+  },
+
+  computed: {
+    starArray() {
+      let newArray = this.star.map(item => {
+        return item.id
+      })
+
+      return newArray;
     }
+  },
+  
+  created() {
+    this.getProducts();
+    this.starItem();
   },
 
   mounted() {

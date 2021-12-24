@@ -27,6 +27,7 @@
         <router-view :products="products" :pagination="pagination" :filterProducts="filterProducts" @page="getProducts"/>
       </main>
     </div>
+    <stars/>
     <front-footer/>
   </div>
 </template>
@@ -34,9 +35,10 @@
 <script>
 import frontNavbar from "./front_Navbar.vue";
 import frontFooter from "./front_Footer.vue";
+import Stars from './Stars.vue';
 
 export default {
-  components: { frontNavbar, frontFooter },
+  components: { frontNavbar, frontFooter, Stars },
   
   data() {
     return {
@@ -57,7 +59,7 @@ export default {
 
         vm.allProducts = vm.allProducts.filter((item) => {
           return item.is_enabled === 1;
-        })        
+        })
       })
     },
 
@@ -107,7 +109,7 @@ export default {
     this.getProducts();
     this.getAllProducts();
 
-    this.$bus.$on('getCategory', item => {
+    this.$bus.$on('get:category', item => {
       this.getCategory(item);
     })
   },

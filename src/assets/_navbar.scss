@@ -15,18 +15,20 @@
     margin: 0;
     list-style-type: none;
     float: right;
-    transition: all 5s;
-    @include mediaquery_pad_minWidth {
-      display: block !important;
-    }
     @include mediaquery_pad {
       background-color: $custom--grey;
       position: fixed;
       top: 5rem;
-      right: 0;
+      right: -100%;
       width: 100%;
     }
   }
+
+  .open {
+    transition: all .8s;
+    right: 0;
+  }
+
   li {
     display: inline-block;
     padding: 2rem;
@@ -50,11 +52,10 @@
         color: $custom--black;
       }
     }
-
-    // button {
-    //   border: none;
-    //   background: none;
-    //   color: $custom--white;
+    // .active_span {
+    //   display: block;
+    //   height: 3px;
+    //   background: $custom--main;
     // }
   }
   a {
@@ -68,6 +69,11 @@
       color: $custom--black;
     }
   }
+
+  .router-link-exact-active {
+    border-bottom: 3px solid $custom--main;
+  }
+  
   .hamburger{
     position: absolute;
     right: 0;
