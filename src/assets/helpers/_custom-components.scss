@@ -1,11 +1,14 @@
 // button
 .add_to_cart_button {
   width: 100%;
-  border: 1px solid $custom--black;
+  border: 1px solid $custom--secondary;
   background-color: $custom--white;
-  padding: 6px auto;
+  color: $custom--secondary;
+  padding: 5px 30px;
+  border-radius: 20px;
+  
   &:hover{
-    background-color: $custom--black;
+    background-color: $custom--secondary;
     color:$custom--white;
   }
 }
@@ -13,7 +16,9 @@
 .qty_button {
   border: 1px solid $custom--black;
   background-color: $custom--white;
-  padding: 6px auto;
+  padding: 1px 6px;
+  border-radius: 2px;
+  width: 25px;
   &:hover{
     background-color: $custom--black;
     color:$custom--white;

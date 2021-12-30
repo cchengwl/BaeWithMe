@@ -1,16 +1,20 @@
 .cart_main {
   max-width: 1140px;
   margin: 0 auto;
+  padding: 50px 0;
 
   &_table {
     h6 {
       font-weight: bold;
+      margin: 0;
     }
   
     &_head {
       display: flex;
       justify-content: space-between;
       padding: 10px 30px;
+      background-color: $custom--main;
+      color: white;
       @include mediaquery_phone {
         display: none;
       }
@@ -41,42 +45,77 @@
           width: 100%;
         }
       }
-      
-      &_detail {
-        display: inline-block;
-        vertical-align: middle;
-      }
-  
-      &_phone1, &_phone2{
-        @include mediaquery_phone {
-          width: 100%;
-        }
-      }
-  
-      &_phone2 {
-        @include mediaquery_phone {
-          margin-left: 110px;
-          text-align: start !important;
-          padding: 5px 0;
-        }
-      }
     }
   
     &_foot {
       border-top: 1px solid #878787;
       padding: 20px 30px;
-      text-align: end;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
   
       div {
-        padding: 5px;
+        flex: 1 0 auto;
+        text-align: end;
+        margin: 0 20px;
+        font-size: 18px;
       }
   
       button {
-        margin: 20px 0; 
+        margin: 20px 0;
+        width: 150px;
         i {
           margin-left: 0 5px;
         }
       }
     }  
+  }
+}
+
+.cart_main_table_body_item {
+  &:first-child {
+    flex: 0 1 250px;
+  }
+
+  &:nth-child(2) {
+    flex: 0 1 100px;
+  }
+
+  &:nth-child(3) {
+    flex: 0 1 150px;
+  }
+
+  &:nth-child(4) {
+    flex: 0 1 80px;
+  }
+
+  &:last-child{
+    flex: 0 1 50px;
+  }
+}
+
+.cart_main_modal {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#clearModal {
+  .modal-footer {
+    button:first-child{
+      border:1px solid $custom--secondary;
+      color: $custom--secondary;
+      &:hover {
+        background-color: $custom--secondary;
+        color: white;
+      }
+    }
+    button:last-child{
+      background-color: $custom--secondary;
+      color: white;
+      &:hover {
+        background-color: darken($custom--secondary,15%);
+      }
+    }
   }
 }

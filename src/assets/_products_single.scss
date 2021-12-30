@@ -17,7 +17,7 @@
 
   &_detail {
     width: calc(100% - 40%);
-    margin-left: 30px;
+    margin: 40px 0 0 30px;
     @include mediaquery_phone {
       width: 100%;
       margin: 50px auto;
@@ -27,8 +27,16 @@
       font-weight: bold;
       margin-bottom: 20px;
     }
-    span {
-      font-size: $custom--h4;
+    &_price {
+      font-size: 1.75rem;
+      font-weight: bold;
+    }
+    &_origin {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: line-through;
+      color: $custom--third;
+      margin-left: 10px;
     }
     p {
       font-size: $custom--normal--size;

@@ -15,13 +15,45 @@
     </div>
     <div class="product_content">
       <aside>
-        <h6>CATEGORIES</h6>
-        <ul>
-          <li><button @click="getCategory(null)">全部商品</button></li>
-          <li><button @click="getCategory('backpack')">背包</button></li>
-          <li><button @click="getCategory('shoes')">鞋子</button></li>
-          <li><button @click="getCategory('accessory')">配件</button></li>
-        </ul>
+        <h6>茶種</h6>
+        <div class="product_content_flex">
+          <div class="product_content_flex_item">
+            <button @click="getCategory('backpack')">
+              <div></div>
+              <span>紅茶</span>
+            </button>
+          </div>
+          <div class="product_content_flex_item">
+            <button @click="getCategory('shoes')">
+              <div></div>
+              <span>綠茶</span>              
+            </button>
+          </div>
+          <div class="product_content_flex_item">
+            <button>
+              <div></div>
+              <span>白茶</span>
+            </button>
+          </div>
+          <div class="product_content_flex_item">
+            <button>
+              <div></div>
+              <span>烏龍</span>              
+            </button>
+          </div>
+          <div class="product_content_flex_item">
+            <button>
+              <div></div>
+              <span>普洱</span>
+            </button>
+          </div>
+          <div class="product_content_flex_item">
+            <button>
+              <div></div>
+              <span>花草茶</span>              
+            </button>
+          </div>                        
+        </div>
       </aside>
       <main class="product_main">
         <router-view :products="products" :pagination="pagination" :filterProducts="filterProducts" @page="getProducts"/>
@@ -46,6 +78,7 @@ export default {
       products: [],
       pagination: {},
       filterProducts: [],
+      category: null,
     }
   },
 

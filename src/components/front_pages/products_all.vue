@@ -1,20 +1,15 @@
 <template>
   <div>
-    <div class="product_all_main_filter">
-      <label>Sort By:</label><select name="filter_select" id="main_filter_select">
-        <option value="Price">Price(Low to High)</option></select>
-    </div>
-    <div class="product_all_main_products">         
-      <div class="product_all_main_products_intro" v-for="item in filterProducts" :key="item.id">
-        <router-link :to="{ path:`/products/${item.id}` }">
-          <div class="product_all_main_products_intro_img">
-            <img :src="item.imageUrl">
-          </div>
-          <p>{{item.title}}</p>
-          <span>{{item.price}}</span>
-          <button class="add_to_cart_button">查看更多</button>          
-        </router-link>
-      </div>
+    <div class="product_all">
+      <div class="product_all_intro" v-for="item in filterProducts" :key="item.id">
+        <button class="index_latest_item_btn" @click.prevent="starItem(item)"><i class="far fa-heart" v-if="starArray.indexOf(item.id) === -1"></i><i class="fas fa-heart" v-else></i></button>
+        <div class="product_all_intro_img">
+          <img :src="item.imageUrl">
+        </div>
+        <h5>{{item.title}}</h5>
+        <span class="product_all_intro_price">${{item.price}}</span><span class="product_all_intro_origin">${{item.origin_price}}</span>
+        <button class="product_all_intro_more" @click="checkMore(item.id)">查看更多</button>
+      </div>      
     </div>
 
     <!-- 分頁標籤 -->
@@ -38,6 +33,12 @@
 export default {
   props: ['products','pagination','filterProducts'],
 
+  data() {
+    return {
+      star: [],
+    }
+  },
+
   methods: {
     getProducts(page = 1) {
       this.$emit('page', page);
@@ -55,11 +56,54 @@ export default {
       this.$http.post(api, { data : cart}).then((response) => {
         this.$bus.$emit('update:cart');
       })
+    },
+
+    starItem(item) {
+      const vm = this;
+      vm.star = JSON.parse(localStorage.getItem('star'));
+
+      if(vm.star === null) {
+        vm.star = [];
+        vm.star.push(item);
+
+      }else {
+        var result = vm.star.map(function(item) {
+          return item.id
+        }).indexOf(item.id);
+
+        if(result === -1) {
+          vm.star.push(item);
+        }else {
+          vm.star.splice(result, 1);
+        }
+      }
+
+      var starJson = JSON.stringify(vm.star);
+      localStorage.setItem('star', starJson);
+
+      this.$bus.$emit('update:star');      
+    },
+
+    checkMore(id) {
+      this.$router.push({
+        name: 'front_Products_single',
+        params: { id: id }
+      })
     }
   },
 
+  computed: {
+    starArray() {
+      let newArray = this.star.map(item => {
+        return item.id
+      })
+
+      return newArray;
+    }
+  },  
+
   created() {
     this.getProducts();
-  }
+  }, 
 };
 </script>

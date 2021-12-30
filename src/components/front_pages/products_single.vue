@@ -5,12 +5,13 @@
     </div>
     <div class="product_single_detail">
       <h6>{{product.title}}</h6>
-      <span>{{product.price}}</span>
+      <span class="product_single_detail_price">${{product.price}}</span>
+      <span class="product_single_detail_origin">${{product.origin_price}}</span>
       <p>{{product.description}}</p>
       <div>
         <button class="qty_button" @click="qtyButton('minus')" :disabled="qty <= 1">-</button><input type="text" class="qty_input" v-model="qty"><button class="qty_button" @click="qtyButton('plus')" :disabled="qty >= 10">+</button>
       </div>
-      <button class="add_to_cart_button" @click="addToCart">ADD TO CART</button>
+      <button class="add_to_cart_button" @click.prevent="addToCart">ADD TO CART</button>
     </div>
   </div>
 </template>
@@ -25,6 +26,7 @@ export default {
     return {
       qty: 1,
       product: {},
+      cart: []
     }
   },
   
@@ -50,16 +52,32 @@ export default {
     
     addToCart() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
 
-      let cart = {
-        "product_id": vm.product.id,
-        "qty": vm.qty
+      vm.cart = JSON.parse(localStorage.getItem('cart'));
+
+      if(vm.cart === null) {
+        vm.cart = [],
+        vm.cart.push({product: vm.product, qty: vm.qty, total: vm.product.price * vm.qty});
+
+      }else {
+        var result = vm.cart.map(function(item){ 
+          return item.product.id 
+        }).indexOf(vm.product.id);
+
+        if(result === -1) {
+          vm.cart.push({product: vm.product, qty: vm.qty, total: vm.product.price * vm.qty});
+        }else {
+          vm.cart[result].qty = vm.qty;
+          vm.cart[result].total = vm.product.price * vm.qty;
+        }
       }
 
-      this.$http.post(api, { data : cart}).then((response) => {
-        this.$bus.$emit('update:cart');
-      })
+      var cartJson = JSON.stringify(vm.cart);
+      localStorage.setItem('cart', cartJson);      
+    },
+
+    clear() {
+      localStorage.clear('cart');
     }
   },
 

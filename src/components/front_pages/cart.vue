@@ -2,173 +2,157 @@
   <div>
     <front-navbar />
     <div class="product_nav_margin"></div>
-    <main class="cart_main cart_checkout">
-      <h5>產品資訊</h5>
+    <main class="cart_main">
       <div class="cart_main_table">
         <div class="cart_main_table_head">
-          <div style="width: 400px"><h6>Product</h6></div>
-          <div class="text-center" style="width: 300px"><h6>價格</h6></div>
-          <div class="text-center" style="width: 200px"><h6>數量</h6></div>
-          <div class="text-right" style="width: 200px"><h6>總價</h6></div>
+          <div class="cart_main_table_body_item"><h6>商品名稱</h6></div>
+          <div class="cart_main_table_body_item text-center"><h6>價格</h6></div>
+          <div class="cart_main_table_body_item text-center"><h6>數量</h6></div>
+          <div class="cart_main_table_body_item text-right"><h6>總價</h6></div>
+          <div class="cart_main_table_body_item text-center"></div>
         </div>
         <div class="cart_main_table_body">
-          <div class="cart_main_table_body_row" v-for="item in cart.carts" :key="item.id">
-            <div style="width: 400px; table_body_row_phone1">
+          <div class="cart_main_table_body_row" v-for="(item,index) in cart" :key="item.id">
+            <div class="cart_main_table_body_item">
               <div class="cart_main_table_body_row_img">
-                <a href="#">
+                <router-link :to="`/products/${item.product.id}`">
                   <img
                     :src="item.product.imageUrl"
-                  />                    
-                </a>
+                  />
+                </router-link>
               </div>
-              <div class="cart_main_table_body_row_detail">
-                <a href="#">{{item.product.title}}</a>
-                <p>{{item.product.description}}</p>
-              </div>
+              <router-link :to="`/products/${item.product.id}`" style="display: inline-block;"><h6>{{item.product.title}}</h6></router-link>
             </div>
-            <div class="text-center cart_main_table_body_row_phone2" style="width: 300px">{{item.product.price}}</div>
-            <div class="text-center cart_main_table_body_row_phone2" style="width: 200px">{{item.qty}}</div>
-            <div class="text-right cart_main_table_body_row_phone2" style="width: 200px">{{item.total}}</div>
+            <div class="cart_main_table_body_item text-center">NT${{item.product.price}}</div>
+            <div class="cart_main_table_body_item text-center">
+              <button class="qty_button" @click="qtyButton('minus',item)" :disabled="item.qty <= 1">-</button><input type="text" class="qty_input" v-model="item.qty" disabled><button class="qty_button" @click="qtyButton('plus',item)" :disabled="item.qty >= 10">+</button>
+            </div>
+            <div class="cart_main_table_body_item text-right">NT${{item.total}}</div>
+            <div class="cart_main_table_body_item text-center"><button @click.prevent="deleteItem(item,index)"><i class="far fa-trash-alt"></i></button></div>
           </div>
         </div>
         <div class="cart_main_table_foot">
-          <div>總價: {{cart.total}}</div>
-          <div>優惠券碼 <input type="text" v-model="coupon" @change="applyCoupon"></div>
-          <div class="text-success">折扣後價格: {{Math.ceil(cart.final_total)}}</div>
-        </div>            
-      </div>
-      <h5>運送資訊</h5>
-      <div class="cart_checkout_delivery">
-        <Validation-observer v-slot="{ invalid }">
-          <div class="form-group">
-            <Validation-provider name="email" rules="required|email" v-slot="{ errors,classes }">
-              <label for="useremail">Email</label>
-              <input type="email" class="form-control" :class="classes" name="email" id="useremail"
-                placeholder="請輸入 Email" v-model="form.user.email" required>
-              <span class="text-danger">{{ errors[0] }}</span>
-            </Validation-provider>
-          </div>
-      
-          <div class="form-group">
-            <Validation-provider name="收件人姓名" rules="required" v-slot="{ errors,classes }">
-              <label for="username">收件人姓名</label>
-              <input type="text" class="form-control" :class="classes" name="name" id="username"
-                placeholder="輸入姓名" v-model="form.user.name">
-              <span class="text-danger">{{ errors[0] }}</span>
-            </Validation-provider>
-          </div>
-        
-          <div class="form-group">
-            <Validation-provider name="收件人電話" rules="required|numeric" v-slot="{ errors,classes }">
-              <label for="usertel">收件人電話</label>
-              <input type="tel" name="tel" class="form-control" :class="classes" id="usertel" 
-              placeholder="請輸入電話" v-model="form.user.phone">
-              <span class="text-danger">{{ errors[0] }}</span>
-            </Validation-provider>
-          </div>
-        
-          <div class="form-group">
-            <Validation-provider name="收件人地址" rules="required" v-slot="{ errors,classes }">
-              <label for="useraddress">收件人地址</label>
-              <input type="text" class="form-control" :class="classes" name="address" id="useraddress"
-                placeholder="請輸入地址" v-model="form.user.address">
-              <span class="text-danger">{{ errors[0] }}</span>
-            </Validation-provider>
-          </div>                
-        
-          <div class="form-group">
-            <label for="comment">留言</label>
-            <textarea name="" id="comment" class="form-control" cols="30" rows="10" placeholder="有任何問題請留言"
-             v-model="form.message"></textarea>
-          </div>
-          <div class="text-right">
-            <button class="btn btn-danger" type="submit" @click="creatOrder" :disabled="invalid">送出訂單</button>
-          </div>
-        </Validation-observer>
-      </div>
-      <!-- Modal -->
-      <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-check-circle"></i>訂單建立成功</h5>
-              <h6>感謝您的訂購，訂單編號為: {{orderId}}</h6>
-            </div>
-          </div>
+          <button class="add_to_cart_button" @click.prevent="openModal">清空購物車</button>
+          <div>總計：NT${{subTotal}}</div>
+          <button class="add_to_cart_button" @click.prevent="checkOut">確認結帳去<i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="clearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body cart_main_modal">
+            確定要移除商品嗎？<br>刪除後將無法恢復
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn" @click="clearItem">確定刪除</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <front-footer />
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
-import $ from 'jquery';
 
 export default {
   components: { frontNavbar, frontFooter },
 
   data() {
     return {
-      cart: {},
-      form: {
-        "user": {
-          "name": "",
-          "email": "",
-          "tel": "",
-          "address": ""
-        },
-        "message": ""
-      },
-      orderId: '',
-      coupon: '',
+      cart: [],
+      qty: 0,
     }
   },
 
   methods: {
     getCart() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      
-      this.$http.get(api).then((response) => {
-        vm.cart = response.data.data;
-      })
+      vm.isLoading = true;
+      vm.cart = JSON.parse(localStorage.getItem('cart'));
     },
 
-    applyCoupon() {
+    qtyButton(count, item) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
-      
-      let coupon = {
-        "code": vm.coupon,
+
+      if(count === 'plus') {
+        item.qty ++;
+      }else {
+        item.qty --;
       }
+      item.total = item.product.price * item.qty;
 
-      this.$http.post(api, { data : coupon } ).then((response) => {
-        alert('已套用優惠券');
-        this.$bus.$emit('couponCode',vm.coupon);
-        vm.getCart();
-      })
-    },    
+      let cartJson = JSON.stringify(vm.cart);
+      localStorage.setItem('cart',cartJson);
+    },  
 
-    creatOrder() {
+    checkOut() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
 
-      this.$http.post(api, {data: vm.form}).then((response) => {
-        console.log(response.data)
-        vm.orderId = response.data.orderId;
-        $('#orderModal').modal('show');
-      })
+      for(let i = 0; i < vm.cart.length; i++) {
+        let cart = {
+          "product_id": vm.cart[i].product.id,
+          "qty": vm.cart[i].qty
+        }
+        this.$http.post(api, { data: cart }).then((response) => {
+          vm.cart = [];
+          let cartJson = JSON.stringify(vm.cart);
+          localStorage.setItem('cart',cartJson);
+          this.$router.push('/checkout').catch(() => {});
+        })
+      }
     },
 
-    closeModal() {
-      this.orderId = '';
+    deleteItem(item, index) {
+      const vm = this;
+      vm.cart.splice(index, 1);
+
+      let cartJson = JSON.stringify(vm.cart);
+      localStorage.setItem('cart',cartJson);
     },
+
+    openModal() {
+      $('#clearModal').modal('show');
+    },
+
+    clearItem() {
+      const vm = this;
+      vm.cart = [];
+      let cartJson = JSON.stringify(vm.cart);
+      localStorage.setItem('cart',cartJson);
+
+      $('#clearModal').modal('hide');
+    }
+  },
+
+  computed: {
+    subTotal() {
+      const vm = this;
+      let subtotal = vm.cart.map(function(item) {
+        return item.total
+      }).reduce(function(prev, curr) {
+        return prev + curr
+      }, 0)
+
+      return subtotal
+    },
+
+    total() {
+      const vm = this;
+
+    }
   },
 
   created() {

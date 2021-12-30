@@ -33,44 +33,118 @@
 
 .product_content{
   background-color: #FFF;
-  display: flex;
-  margin: 0 auto;
+  margin: 50px;
   max-width: 1140px;
-  @include mediaquery_phone {
+  display: flex;
+  @include mediaquery_pad {
     flex-direction: column;
   }
 
-  aside{
-    padding: 20px 0;
-    font-size: 13px;
-    flex: 0 1 20%;
+  aside {
+    flex: 0 1 150px;
+    padding: 20px;
+    margin-right: 50px;
+    
     @include mediaquery_phone {
-      text-align: center;
+      padding: 20px 0;
+      margin: 0;
     }
-    h6{
+    h6 {
+      text-align: center;
       font-weight: bold;
     }
-    ul{
-      margin-top: 4px;
-    }
-    li{
-      padding: 3px 0;
-    }
-    button{
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      color: #666666;
+  }
 
-      &:hover {
-        color: $link-hover-color;
+  &_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  
+    @include mediaquery_phone {
+      margin: 50px auto;
+    }
+  
+    button {
+      border: none;
+      background: none;
+    }
+
+    &_item {
+      padding: 5px 0;
+
+      div{
+        border:1px dashed black;
+        display: inline-block;
+        border-radius: 50%;
+        padding: 3px;
+        position: relative;
+      
+        &:hover {
+          animation: rotate 10s linear infinite;
+        }
+      
+        &:before {
+          content: "";
+          display: block;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          background-color: brown;
+        }
+      }
+    
+      &:nth-child(2) {
+        div {
+          &:before {
+            background-color:#C3D825;
+          }
+        }
+      }
+    
+      &:nth-child(3) {
+        div {
+          &:before {
+            background-color:#FFF;
+          }
+        }
+      }
+    
+      &:nth-child(4) {
+        div {
+          &:before {
+            background-color:#383d43;
+          }
+        }
+      }
+    
+      &:nth-child(5) {
+        div {
+          &:before {
+            background-color:#E6BE71;
+          }
+        }
+      }
+    
+      &:nth-child(6) {
+        div {
+          &:before {
+            background-color:#B180E6;
+          }
+        }
+      }
+    
+      span {
+        display: block;
       }
     }
-  }  
+  }
 }
 
 .product_main{
   padding: 20px 0;
   flex-grow: 1;
+
+  nav {
+    margin-top: 100px;
+  }
 }

@@ -70,7 +70,7 @@
                 </div>
                 <h5>{{item.title}}</h5>
                 <span class="index_latest_item_price">${{item.price}}</span><span class="index_latest_item_origin">${{item.origin_price}}</span>
-                <button class="index_latest_item_more">查看更多</button>
+                <button class="index_latest_item_more" @click="checkMore(item.id)">查看更多</button>
               </div>
             </slide>
           </carousel>
@@ -225,6 +225,13 @@ export default {
 
       this.$bus.$emit('update:star');
     },
+
+    checkMore(id) {
+      this.$router.push({
+        name: 'front_Products_single',
+        params: { id: id }
+      })
+    }
   },
 
   computed: {
