@@ -200,9 +200,13 @@ export default {
       })
     },
 
-    starItem(item) {
+    getStar() {
       const vm = this;
       vm.star = JSON.parse(localStorage.getItem('star'));
+    },
+
+    starItem(item) {
+      const vm = this;
 
       if(vm.star === null) {
         vm.star = [];
@@ -246,7 +250,7 @@ export default {
   
   created() {
     this.getProducts();
-    this.starItem();
+    this.getStar();
   },
 
   mounted() {

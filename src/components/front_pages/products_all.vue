@@ -58,6 +58,11 @@ export default {
       })
     },
 
+    getStar() {
+      const vm = this;
+      vm.star = JSON.parse(localStorage.getItem('star'));
+    },
+
     starItem(item) {
       const vm = this;
       vm.star = JSON.parse(localStorage.getItem('star'));
@@ -104,6 +109,7 @@ export default {
 
   created() {
     this.getProducts();
+    this.getStar();
   }, 
 };
 </script>
