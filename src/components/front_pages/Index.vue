@@ -178,9 +178,9 @@ export default {
 
       this.$router.push({
         name: 'front_Products_all',
-        // query: {
-        //   category: item
-        // }
+        query: {
+          category: item
+        }
       }).catch(() => {});
     },
 

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button class="global_stars" @click.prevent>
+    <router-link class="global_stars" :to="{'name':'front_Star'}">
       <i class="far fa-heart"></i>
       <div>{{stars.length}}</div>
-    </button>
+    </router-link>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default({
     getStar() {
       const vm = this;
       vm.stars = JSON.parse(localStorage.getItem('star'));
-    }
+    },
   },
 
   mounted() {

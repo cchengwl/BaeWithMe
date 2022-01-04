@@ -77,8 +77,6 @@ export default {
       allProducts: [],
       products: [],
       pagination: {},
-      filterProducts: [],
-      category: null,
     }
   },
 
@@ -89,7 +87,6 @@ export default {
       
       this.$http.get(api).then((response) => {
         vm.allProducts = response.data.products;
-
         vm.allProducts = vm.allProducts.filter((item) => {
           return item.is_enabled === 1;
         })
@@ -114,37 +111,48 @@ export default {
 
     getCategory(item) {
       const vm = this;
-      vm.pagination.category = item;
 
-      if(vm.pagination.category !== null) {
-        this.$router.push({
-          name: 'front_Products_all',
-          query: {
-            category: item
-          }
-        }).catch(() => {});
+      this.$router.push({
+        name: 'front_Products_all',
+        query: {
+          category: item
+        }
+      }).catch(() => {});
 
-        vm.filterProducts = vm.allProducts.filter(item => {
-          return item.category === vm.pagination.category;
-        })
-
-      } else if(vm.pagination.category === null){
-        this.$router.push({
-          name: 'front_Products_all',
-        }).catch(() => {});
-
-        return vm.filterProducts = vm.products;
-      }
+      this.pagination.category = item;
+      console.log(item)
     },
+  },
+
+  computed: {
+    filterProducts: {
+      get() {
+        if(this.$route.query.category === undefined) {
+          return this.products;
+        }else {
+          let filterProducts = this.allProducts.filter(item => {
+            return item.category === this.$route.query.category;
+          })
+
+          return filterProducts
+        }
+      },
+
+      set(value) {
+        return value
+      }
+    }
   },
 
   created() {
     this.getProducts();
     this.getAllProducts();
-
+    
     this.$bus.$on('get:category', item => {
+      console.log(item)
+      this.category = item;
       this.getCategory(item);
-    })
+    })    
   },
 };
 </script>
