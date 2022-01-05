@@ -85,7 +85,7 @@
         </Validation-observer>
       </div>
       <!-- Modal -->
-      <!-- <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -93,11 +93,13 @@
                 <span aria-hidden="true">&times;</span>
               </button>
               <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-check-circle"></i>訂單建立成功</h5>
-              <h6>感謝您的訂購，訂單編號為: {{orderId}}</h6>
+              <h6>感謝您的訂購，訂單編號為:</h6>
+              <h6>112222222222222222</h6>
+              <button class="add_to_cart_button" @click="goPay(orderId)">前往付款</button>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </main>
     <front-footer />
   </div>
@@ -160,10 +162,18 @@ export default {
       const vm = this;
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
 
-      this.$http.post(api, {data: vm.form}).then((response) => {
-        console.log(response.data)
-        vm.orderId = response.data.orderId;
+      // this.$http.post(api, {data: vm.form}).then((response) => {
+      //   console.log(response.data)
+      //   vm.orderId = response.data.orderId;
         $('#orderModal').modal('show');
+      // })
+    },
+
+    goPay(orderId) {
+      const vm = this;
+      vm.$router.push({
+        name: 'front_Paid',
+        params: { orderId: orderId }
       })
     },
 

@@ -73,7 +73,8 @@ export default {
       }
 
       var cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart', cartJson);      
+      localStorage.setItem('cart', cartJson);
+      this.$bus.$emit('update:cart');  
     },
 
     clear() {

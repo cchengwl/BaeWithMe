@@ -1,0 +1,135 @@
+.paid_main {
+  max-width: 1140px;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.paid_main_thanks {
+  text-align: center;
+  border: 2px solid $custom--main;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 50px 20px;
+  flex: 1 1 100%;
+  
+  a {
+    color: $custom--secondary;
+    width: 100%;
+    &:hover {
+      color: $custom--white;
+    }
+  }
+
+  h4,h5 {
+    margin: 20px auto;
+  }
+
+  .add_to_cart_button {
+    width: 200px;
+    margin: 0 10px;
+    @include mediaquery_phone {
+      width: 100px;
+      padding: 5px 10px;
+    }
+  }
+}
+
+.paid_main_order {
+  display: inline-block;
+  flex: 1 1 40%;
+  margin: 0 20px;
+  @include mediaquery_phone {
+    flex: 1 1 100%;
+  }
+  
+  h5{
+    background-color: $custom--main;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  h6 {
+    font-weight: bold;
+  }
+
+  &_table {
+    &_head {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 30px;
+      font-weight: bold;
+    }
+
+    &_body_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #878787;
+      padding: 20px 30px;
+      @include mediaquery_phone {
+        flex-wrap: wrap;
+      }
+  
+      &_img {
+        width: 100px;
+        display: inline-block;
+        margin-right: 10px;
+        a {
+          width: 100%;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.paid_main_ship {
+  display: inline-block;
+  vertical-align: top;
+  flex: 1 1 40%;
+  margin: 0 20px;
+  @include mediaquery_phone {
+    flex: 1 1 100%;
+  }
+  h5{
+    background-color: $custom--main;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  
+  div {
+    padding: 10px 30px;
+    border-bottom: 1px solid #878787;
+    display: flex;
+
+    span {
+      font-size: 1rem;
+      &:first-child {
+        flex: 1 0 150px;
+        font-weight: bold;
+      }
+      &:last-child {
+        flex: 0 1 50%;
+      }
+    }
+  }
+
+}
+
+.paid_main_order_item {
+  &:first-child {
+    flex: 1 1 200px;
+  }
+  &:nth-child(2) {
+    flex: 1 1 auto;
+  }
+  &:last-child {
+    flex: 1 1 auto;
+  }
+}

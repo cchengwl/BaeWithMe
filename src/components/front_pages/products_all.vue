@@ -44,20 +44,6 @@ export default {
       this.$emit('page', page);
     },
 
-    addToCart(id , qty) {
-      const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-
-      let cart = {
-        "product_id": id,
-        "qty": qty
-      }
-
-      this.$http.post(api, { data : cart}).then((response) => {
-        this.$bus.$emit('update:cart');
-      })
-    },
-
     getStar() {
       const vm = this;
       vm.star = JSON.parse(localStorage.getItem('star'));

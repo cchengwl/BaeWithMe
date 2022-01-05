@@ -15,6 +15,7 @@ import front_Products_single from '@/components/front_pages/products_single';
 import front_Cart from '@/components/front_pages/cart';
 import front_Check_out from '@/components/front_pages/check_out';
 import front_Star from '@/components/front_pages/stars_page';
+import front_Paid from '@/components/front_pages/paid';
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ export default new Router({
       path: '/checkout',
       name: 'front_Check_out',
       component: front_Check_out,
+    },
+    {
+      path: '/paid/:orderId',
+      name: 'front_Paid',
+      component: front_Paid,
     },
     {
       path: '/stars',

@@ -23,10 +23,15 @@
   h6 {
     text-align: center;
     font-weight: bold;
+    margin: 20px;
   }
 
   i {
     color: $success;
     margin: 0 5px;
+  }
+
+  .add_to_cart_button {
+    margin-top: 30px;
   }
 }

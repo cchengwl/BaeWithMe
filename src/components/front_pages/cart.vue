@@ -34,7 +34,7 @@
         <div class="cart_main_table_foot">
           <button class="add_to_cart_button" @click.prevent="openModal">清空購物車</button>
           <div>總計：NT${{subTotal}}</div>
-          <button class="add_to_cart_button" @click.prevent="checkOut">確認結帳去<i class="fas fa-arrow-right"></i></button>
+          <button class="add_to_cart_button" @click.prevent="checkOut" :disabled="subTotal === 0">確認結帳去<i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
     </main>
@@ -72,7 +72,6 @@ export default {
   data() {
     return {
       cart: [],
-      qty: 0,
     }
   },
 
