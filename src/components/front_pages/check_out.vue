@@ -141,22 +141,7 @@ export default {
         vm.cart = response.data.data;
         vm.isLoading = false;
       })
-    },
-
-    applyCoupon() {
-      const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
-      
-      let coupon = {
-        "code": vm.coupon,
-      }
-
-      this.$http.post(api, { data : coupon } ).then((response) => {
-        alert('已套用優惠券');
-        this.$bus.$emit('couponCode',vm.coupon);
-        vm.getCart();
-      })
-    },    
+    },  
 
     creatOrder() {
       const vm = this;

@@ -51,14 +51,25 @@
       border-top: 1px solid #878787;
       padding: 20px 30px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+
+      &_coupon {
+        flex: 1 0 100%;
+        .input-group {
+          justify-content: end;
+        }
+        .form-control {
+          flex: 0 0 200px;
+        }
+      }
   
-      div {
-        flex: 1 0 auto;
+      &_total {
+        flex: 1 0 100%;
         text-align: end;
-        margin: 0 20px;
         font-size: 18px;
+        margin-top: 10px;
       }
   
       button {

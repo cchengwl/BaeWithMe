@@ -16,7 +16,7 @@
         </button>
       </div>
       <div class="front_nav_cart" v-show="openCart">
-        <div class="front_nav_cart_contain" v-for="(item,index) in cart" :key="item.id">
+        <div class="front_nav_cart_contain" v-for="(item,index) in cart.carts" :key="item.id">
           <div class="front_nav_cart_img"><img :src="item.product.imageUrl"></div>
           <div class="front_nav_cart_title">
             <h6>{{item.product.title}}</h6>
@@ -37,7 +37,7 @@ export default({
   data() {
     return {
       hamburgerActive: false,
-      cart: [],
+      cart: {},
       cartQty: '',
       cartShow: false,
       openCart: false
@@ -47,22 +47,25 @@ export default({
   methods: {
     getCart() {
       const vm = this;
-      vm.cart = JSON.parse(localStorage.getItem('cart'));
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data;
+      })      
     },
 
-    deleteItem(index) {
+    deleteItem(item) {
       const vm = this;
-      vm.cart.splice(index,1);
+      const deleteAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${item.id}`;
 
-      console.log(vm.cart)
-      
-      let cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart', cartJson);
-      vm.getCart();
+      this.$http.delete(deleteAPI).then((response) => {
+        vm.getCart();
+      })
     },
+
 
     goCart() {
-      this.$router.push('/cart');
+      this.$router.push('/cart').catch(() => {});
     }
   },
 

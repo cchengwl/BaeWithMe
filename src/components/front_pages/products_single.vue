@@ -1,5 +1,6 @@
 <template>
   <div class="product_single">
+    <alert/>
     <div class="product_single_img">
       <img :src="product.imageUrl">
     </div>
@@ -19,14 +20,16 @@
 <script>
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
+import Alert from '../AlertMessage.vue';
 
 export default {
-  components: { frontNavbar, frontFooter },
+  components: { frontNavbar, frontFooter, Alert },
   data() {
     return {
       qty: 1,
       product: {},
-      cart: []
+      cart: [],
+      cartId: {}
     }
   },
   
@@ -52,34 +55,39 @@ export default {
     
     addToCart() {
       const vm = this;
-
-      vm.cart = JSON.parse(localStorage.getItem('cart'));
-
-      if(vm.cart === null) {
-        vm.cart = [],
-        vm.cart.push({product: vm.product, qty: vm.qty, total: vm.product.price * vm.qty});
-
-      }else {
-        var result = vm.cart.map(function(item){ 
-          return item.product.id 
-        }).indexOf(vm.product.id);
-
-        if(result === -1) {
-          vm.cart.push({product: vm.product, qty: vm.qty, total: vm.product.price * vm.qty});
-        }else {
-          vm.cart[result].qty = vm.qty;
-          vm.cart[result].total = vm.product.price * vm.qty;
-        }
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      
+      let cart = {
+        "product_id": vm.product.id,
+        "qty": vm.qty
       }
 
-      var cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart', cartJson);
-      this.$bus.$emit('update:cart');  
-    },
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data.carts;
+        let currentItem = vm.cart.map(function(item) {
+          return item.product_id
+        }).indexOf(vm.product.id)
 
-    clear() {
-      localStorage.clear('cart');
-    }
+        if(currentItem !== -1) {
+          vm.cartId = vm.cart.find(function(item) {
+            return item.product_id === vm.product.id
+          })
+          const deleteAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${vm.cartId.id}`;
+          this.$http.delete(deleteAPI).then((response) => {
+            this.$http.post(api, { data:cart }).then((response) => {
+              this.$bus.$emit('message:push',response.data.message, 'success');  
+              this.$bus.$emit('update:cart');
+            })
+          })
+        }else {
+          this.$http.post(api, { data:cart }).then((response) => {
+            this.$bus.$emit('message:push',response.data.message, 'success');
+            this.$bus.$emit('update:cart');
+          })          
+        }
+
+      })
+    },
   },
 
   created() {

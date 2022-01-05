@@ -1,8 +1,10 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"/>
     <front-navbar />
     <div class="product_nav_margin"></div>
     <main class="cart_main">
+      <alert/>
       <div class="cart_main_table">
         <div class="cart_main_table_head">
           <div class="cart_main_table_body_item"><h6>商品名稱</h6></div>
@@ -12,7 +14,7 @@
           <div class="cart_main_table_body_item text-center"></div>
         </div>
         <div class="cart_main_table_body">
-          <div class="cart_main_table_body_row" v-for="(item,index) in cart" :key="item.id">
+          <div class="cart_main_table_body_row" v-for="item in cart.carts" :key="item.id">
             <div class="cart_main_table_body_item">
               <div class="cart_main_table_body_row_img">
                 <router-link :to="`/products/${item.product.id}`">
@@ -28,13 +30,22 @@
               <button class="qty_button" @click="qtyButton('minus',item)" :disabled="item.qty <= 1">-</button><input type="text" class="qty_input" v-model="item.qty" disabled><button class="qty_button" @click="qtyButton('plus',item)" :disabled="item.qty >= 10">+</button>
             </div>
             <div class="cart_main_table_body_item text-right">NT${{item.total}}</div>
-            <div class="cart_main_table_body_item text-center"><button @click.prevent="deleteItem(item,index)"><i class="far fa-trash-alt"></i></button></div>
+            <div class="cart_main_table_body_item text-center"><button @click.prevent="deleteItem(item)"><i class="far fa-trash-alt"></i></button></div>
           </div>
         </div>
         <div class="cart_main_table_foot">
+          <div class="cart_main_table_foot_coupon">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">套用優惠券</span>
+              </div>
+              <input type="text" id="couponCode" v-model="coupon" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>          
+          </div>
+          <div class="cart_main_table_foot_total">總計：NT${{cart.total}}</div>
+          <div class="cart_main_table_foot_total text-success" v-if="cart.total > cart.final_total">折扣後價格：NT${{cart.final_total}}</div>          
           <button class="add_to_cart_button" @click.prevent="openModal">清空購物車</button>
-          <div>總計：NT${{subTotal}}</div>
-          <button class="add_to_cart_button" @click.prevent="checkOut" :disabled="subTotal === 0">確認結帳去<i class="fas fa-arrow-right"></i></button>
+          <button class="add_to_cart_button" @click.prevent="checkOut" :disabled="cart.total === 0">確認結帳去<i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
     </main>
@@ -65,61 +76,68 @@
 import $ from 'jquery';
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
+import Alert from '../AlertMessage.vue';
 
 export default {
-  components: { frontNavbar, frontFooter },
+  components: { frontNavbar, frontFooter, Alert },
 
   data() {
     return {
-      cart: [],
+      cart: {},
+      isLoading: false,
+      coupon: '',
     }
   },
 
   methods: {
     getCart() {
       const vm = this;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
       vm.isLoading = true;
-      vm.cart = JSON.parse(localStorage.getItem('cart'));
+
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data;
+        vm.isLoading = false;
+      })
     },
 
     qtyButton(count, item) {
       const vm = this;
+      const deleteAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${item.id}`;
+      const postAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      vm.isLoading = true;
 
       if(count === 'plus') {
         item.qty ++;
       }else {
         item.qty --;
       }
-      item.total = item.product.price * item.qty;
 
-      let cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart',cartJson);
-    },  
-
-    checkOut() {
-      const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-
-      for(let i = 0; i < vm.cart.length; i++) {
-        let cart = {
-          "product_id": vm.cart[i].product.id,
-          "qty": vm.cart[i].qty
-        }
-        this.$http.post(api, { data: cart }).then((response) => {
-          vm.cart = [];
-          let cartJson = JSON.stringify(vm.cart);
-          localStorage.setItem('cart',cartJson);
-          this.$router.push('/checkout').catch(() => {});
-        })
+      let cart = {
+        "product_id": item.product_id,
+        "qty": item.qty
       }
+
+      this.$http.delete(deleteAPI).then((response) => {
+        this.$http.post(postAPI, { data: cart }).then((response) => {
+          vm.isLoading = false;
+          vm.getCart();
+          this.$bus.$emit('update:cart');
+        })
+      })
+    },
+    
+    checkOut() {
+      this.$router.push('/checkout').catch(() => {});
     },
 
-    deleteItem(item, index) {
+    deleteItem(item) {
       const vm = this;
-      vm.cart.splice(index, 1);
+      const deleteAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${item.id}`;
 
-      let cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart',cartJson);
+      this.$http.delete(deleteAPI).then((response) => {
+        vm.getCart();
+      })
     },
 
     openModal() {
@@ -128,34 +146,42 @@ export default {
 
     clearItem() {
       const vm = this;
-      vm.cart = [];
-      let cartJson = JSON.stringify(vm.cart);
-      localStorage.setItem('cart',cartJson);
+
+      for(let i = 0; i < vm.cart.carts.length ; i++) {
+        let itemId = vm.cart.carts[i].id;
+        let deleteAPI = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${itemId}`;
+
+        this.$http.delete(deleteAPI).then((response) => {
+          vm.getCart();
+        })
+      }
 
       $('#clearModal').modal('hide');
     }
   },
 
-  computed: {
-    subTotal() {
-      const vm = this;
-      let subtotal = vm.cart.map(function(item) {
-        return item.total
-      }).reduce(function(prev, curr) {
-        return prev + curr
-      }, 0)
-
-      return subtotal
-    },
-
-    total() {
-      const vm = this;
-
-    }
-  },
-
   created() {
     this.getCart();
+  },
+
+  mounted() {
+    const vm = this;
+    const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
+
+    $('#couponCode').change(function() {
+      let coupon = {
+        "code": vm.coupon,
+      }      
+      vm.$http.post(api, { data : coupon } ).then((response) => {
+        if(response.data.success) {
+          vm.$bus.$emit('message:push',response.data.message, 'success');          
+        }else {
+          vm.$bus.$emit('message:push',response.data.message, 'danger');
+        }
+        vm.coupon = '';
+        vm.getCart();
+      })
+    })    
   }
 };
 </script>
