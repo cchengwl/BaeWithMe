@@ -1,5 +1,6 @@
 <template>
-  <div>  
+  <div>
+    <loading :active.sync="isLoading"/>
     <front-navbar />
     <div class="product_nav_margin"></div>
     <main class="paid_main">
@@ -53,6 +54,7 @@
         </div>                     
       </div>
     </main>
+    <stars/>
     <front-footer />
   </div>
 </template>
@@ -60,20 +62,22 @@
 <script>
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
+import Stars from '../Stars.vue';
 
 export default {
-  components: { frontNavbar, frontFooter },
+  components: { frontNavbar, frontFooter, Stars },
 
   data() {
     return {
       order: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-          address: ''
-        }
+        "user": {
+          "name": "",
+          "email": "",
+          "tel": "",
+          "address": ""
+        },
       },
+      isLoading: false,
     }
   },
 
@@ -81,7 +85,8 @@ export default {
     getOrder() {
       const vm = this;
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/${vm.$route.params.orderId}`;
-
+      vm.isLoading = true;
+      
       this.$http.get(api).then((response) => {
         vm.order = response.data.order;
         const date = new Date(vm.order.create_at * 1000);
@@ -93,6 +98,7 @@ export default {
         let second = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
 
         vm.order.create_at = `${yyyy}/${mm}/${dd} ${hour}:${minute}:${second}`;
+        vm.isLoading = false;
       })
     },
 
@@ -103,7 +109,7 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     this.getOrder();
   }
   

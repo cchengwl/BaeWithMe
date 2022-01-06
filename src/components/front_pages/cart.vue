@@ -8,7 +8,7 @@
       <div class="cart_main_table">
         <div class="cart_main_table_head">
           <div class="cart_main_table_body_item"><h6>商品名稱</h6></div>
-          <div class="cart_main_table_body_item text-center"><h6>價格</h6></div>
+          <div class="cart_main_table_body_item text-center"><h6>單價</h6></div>
           <div class="cart_main_table_body_item text-center"><h6>數量</h6></div>
           <div class="cart_main_table_body_item text-right"><h6>總價</h6></div>
           <div class="cart_main_table_body_item text-center"></div>
@@ -25,11 +25,11 @@
               </div>
               <router-link :to="`/products/${item.product.id}`" style="display: inline-block;"><h6>{{item.product.title}}</h6></router-link>
             </div>
-            <div class="cart_main_table_body_item text-center">NT${{item.product.price}}</div>
+            <div class="cart_main_table_body_item text-center"><span>單價 </span>NT${{item.product.price}}</div>
             <div class="cart_main_table_body_item text-center">
               <button class="qty_button" @click="qtyButton('minus',item)" :disabled="item.qty <= 1">-</button><input type="text" class="qty_input" v-model="item.qty" disabled><button class="qty_button" @click="qtyButton('plus',item)" :disabled="item.qty >= 10">+</button>
             </div>
-            <div class="cart_main_table_body_item text-right">NT${{item.total}}</div>
+            <div class="cart_main_table_body_item text-right"><span>總價 </span>NT${{item.total}}</div>
             <div class="cart_main_table_body_item text-center"><button @click.prevent="deleteItem(item)"><i class="far fa-trash-alt"></i></button></div>
           </div>
         </div>
@@ -43,7 +43,7 @@
             </div>          
           </div>
           <div class="cart_main_table_foot_total">總計：NT${{cart.total}}</div>
-          <div class="cart_main_table_foot_total text-success" v-if="cart.total > cart.final_total">折扣後價格：NT${{cart.final_total}}</div>          
+          <div class="cart_main_table_foot_total text-success" v-if="cart.total > cart.final_total">折扣後價格：NT${{Math.ceil(cart.final_total)}}</div>          
           <button class="add_to_cart_button" @click.prevent="openModal">清空購物車</button>
           <button class="add_to_cart_button" @click.prevent="checkOut" :disabled="cart.total === 0">確認結帳去<i class="fas fa-arrow-right"></i></button>
         </div>
@@ -68,6 +68,7 @@
         </div>
       </div>
     </div>
+    <stars/>
     <front-footer />
   </div>
 </template>
@@ -77,9 +78,10 @@ import $ from 'jquery';
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
 import Alert from '../AlertMessage.vue';
+import Stars from '../Stars.vue';
 
 export default {
-  components: { frontNavbar, frontFooter, Alert },
+  components: { frontNavbar, frontFooter, Alert, Stars },
 
   data() {
     return {

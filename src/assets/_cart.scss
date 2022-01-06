@@ -84,24 +84,50 @@
 }
 
 .cart_main_table_body_item {
+  span {
+    display: none;
+    @include mediaquery_phone{
+      display: inline-block;
+    }
+  }
+
   &:first-child {
     flex: 0 1 250px;
+    @include mediaquery_phone {
+      flex: 0 1 100%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
   }
 
   &:nth-child(2) {
     flex: 0 1 100px;
+    @include mediaquery_phone {
+      flex: 0 1 50px;
+    }
   }
 
   &:nth-child(3) {
     flex: 0 1 150px;
+    @include mediaquery_phone {
+      flex: 1 1 auto;
+    }
   }
 
   &:nth-child(4) {
-    flex: 0 1 80px;
+    flex: 0 1 100px;
+    font-weight: bold;
+    @include mediaquery_phone {
+      flex: 0 1 50px;
+    }
   }
 
-  &:last-child{
+  &:nth-child(5) {
     flex: 0 1 50px;
+    @include mediaquery_phone {
+      flex: 0 1 100%;
+      margin-top: 30px;
+    }
   }
 }
 

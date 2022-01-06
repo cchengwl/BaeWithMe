@@ -26,19 +26,39 @@
               <router-link :to="`/products/${item.id}`" style="display: inline-block;"><h6>{{item.title}}</h6></router-link>
             </div>
             <div class="star_table_body_item text-left">{{item.description}}</div>
-            <div class="star_table_body_item text-center">NT${{item.price}}</div>
+            <div class="star_table_body_item text-center"><span>單價 </span>NT${{item.price}}</div>
           </div>
         </div>
         <div class="star_main_table_foot">
           <button class="add_to_cart_button" @click.prevent="openModal">清空商品</button>
         </div>
       </div>
-    </main>      
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="clearStar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body cart_main_modal">
+            確定要移除商品嗎？<br>刪除後將無法恢復
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn" @click="clearItem">確定刪除</button>
+          </div>
+        </div>
+      </div>
+    </div>    
     <front-footer />
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
 
@@ -64,7 +84,21 @@ export default {
       localStorage.setItem('star', starJson);
 
       this.$bus.$emit('update:star');
-    },    
+    },
+
+    openModal() {
+      $('#clearStar').modal('show');
+    },
+
+    clearItem() {
+      const vm = this;
+      vm.star = [];
+      var starJson = JSON.stringify(vm.star);
+      localStorage.setItem('star', starJson);
+      vm.getStar();
+      $('#clearStar').modal('hide');
+      this.$bus.$emit('update:star');
+    }
   },
 
   computed: {

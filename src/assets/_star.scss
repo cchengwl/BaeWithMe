@@ -38,6 +38,9 @@
         width: 100px;
         display: inline-block;
         margin-right: 10px;
+        @include mediaquery_phone {
+          margin-right: 0px;
+        }
         a {
           width: 100%;
         }
@@ -77,19 +80,60 @@
 }
 
 .star_table_body_item {
+  span {
+    display: none;
+    @include mediaquery_phone {
+      display: inline-block;
+    }
+  }
   &:first-child {
     flex: 0 1 40px;
+    @include mediaquery_phone {
+      flex: 0 1 30px;
+    }
   }
 
   &:nth-child(2) {
     flex: 0 1 200px;
+    @include mediaquery_phone {
+      flex: 0 1 30%;
+      text-align: center;
+    }
   }
 
   &:nth-child(3) {
     flex: 0 1 400px;
+    @include mediaquery_phone {
+      flex: 0 1 50%;
+    }
   }
 
   &:last-child{
     flex: 0 1 150px;
+    font-weight: bold;
+    @include mediaquery_phone {
+      flex: 0 1 100%;
+      text-align: end !important;
+    }
+  }
+}
+
+#clearStar {
+  .modal-footer {
+    button:first-child{
+      border:1px solid $custom--secondary;
+      color: $custom--secondary;
+      &:hover {
+        background-color: $custom--secondary;
+        color: white;
+      }
+    }
+    button:last-child{
+      background-color: $custom--secondary;
+      color: white;
+      &:hover {
+        background-color: darken($custom--secondary,15%);
+      }
+    }
   }
 }

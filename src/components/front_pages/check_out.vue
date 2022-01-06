@@ -8,7 +8,7 @@
       <div class="cart_main_table">
         <div class="cart_main_table_head">
           <div class="cart_main_table_body_item"><h6>商品名稱</h6></div>
-          <div class="cart_main_table_body_item text-center"><h6>價格</h6></div>
+          <div class="cart_main_table_body_item text-center"><h6>單價</h6></div>
           <div class="cart_main_table_body_item text-center"><h6>數量</h6></div>
           <div class="cart_main_table_body_item text-right"><h6>總價</h6></div>
         </div>
@@ -24,15 +24,14 @@
               </div>
               <router-link :to="`/products/${item.product.id}`" style="display: inline-block;"><h6>{{item.product.title}}</h6></router-link>
             </div>
-            <div class="cart_main_table_body_item text-center">NT${{item.product.price}}</div>
+            <div class="cart_main_table_body_item text-center"><span>單價 </span>NT${{item.product.price}}</div>
             <div class="cart_main_table_body_item text-center">{{item.qty}}</div>
-            <div class="cart_main_table_body_item text-right">NT${{item.total}}</div>
+            <div class="cart_main_table_body_item text-right"><span>總價 </span>NT${{item.total}}</div>
           </div>
         </div>
         <div class="cart_main_table_foot">
-          <!-- <button class="add_to_cart_button" @click.prevent="openModal">清空購物車</button> -->
-          <!-- <div>總計：NT${{subTotal}}</div> -->
-          <!-- <button class="add_to_cart_button" @click.prevent="checkOut">確認結帳去<i class="fas fa-arrow-right"></i></button> -->
+          <div class="cart_main_table_foot_total">總計：NT${{cart.total}}</div>
+          <div class="cart_main_table_foot_total text-success" v-if="cart.total > cart.final_total">折扣後價格：NT${{Math.ceil(cart.final_total)}}</div>          
         </div>
       </div>
       <h5>運送資訊</h5>
@@ -94,24 +93,27 @@
               </button>
               <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-check-circle"></i>訂單建立成功</h5>
               <h6>感謝您的訂購，訂單編號為:</h6>
-              <h6>112222222222222222</h6>
+              <h6>{{orderId}}</h6>
               <button class="add_to_cart_button" @click="goPay(orderId)">前往付款</button>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <stars/>
     <front-footer />
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
 import frontNavbar from "../front_Navbar.vue";
 import frontFooter from "../front_Footer.vue";
-import $ from 'jquery';
+import Stars from '../Stars.vue';
+
 
 export default {
-  components: { frontNavbar, frontFooter },
+  components: { frontNavbar, frontFooter, Stars },
 
   data() {
     return {
@@ -147,18 +149,23 @@ export default {
       const vm = this;
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
 
-      // this.$http.post(api, {data: vm.form}).then((response) => {
-      //   console.log(response.data)
-      //   vm.orderId = response.data.orderId;
+      this.$http.post(api, {data: vm.form}).then((response) => {
+        console.log(response.data)
+        vm.orderId = response.data.orderId;
         $('#orderModal').modal('show');
-      // })
+      })
     },
 
     goPay(orderId) {
       const vm = this;
-      vm.$router.push({
-        name: 'front_Paid',
-        params: { orderId: orderId }
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${orderId}`;
+
+      this.$http.post(api).then((response) => {
+        console.log(response.data);
+        vm.$router.push({
+          name: 'front_Paid',
+          params: { orderId: orderId }
+        }).catch(() => {});
       })
     },
 
