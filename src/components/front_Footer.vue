@@ -2,7 +2,7 @@
   <div>
     <footer>
       <div class="container">
-        <div class="footer-logo">logo here</div>
+        <div class="footer-logo"></div>
         <div>
           <h6>背包資訊</h6>
           <ul>

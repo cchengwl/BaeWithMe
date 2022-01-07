@@ -15,42 +15,42 @@
     </div>
     <div class="product_content">
       <aside>
-        <h6>茶種</h6>
+        <h6>分類</h6>
         <div class="product_content_flex">
           <div class="product_content_flex_item">
             <button @click="getCategory('backpack')">
               <div></div>
-              <span>紅茶</span>
+              <span>背包</span>
             </button>
           </div>
           <div class="product_content_flex_item">
             <button @click="getCategory('shoes')">
               <div></div>
-              <span>綠茶</span>              
+              <span>鞋類</span>              
             </button>
           </div>
           <div class="product_content_flex_item">
-            <button>
+            <button @click="getCategory('headgear')">
               <div></div>
-              <span>白茶</span>
+              <span>帽子</span>
             </button>
           </div>
           <div class="product_content_flex_item">
-            <button>
+            <button @click="getCategory('accessory')">
               <div></div>
-              <span>烏龍</span>              
+              <span>配件</span>              
             </button>
           </div>
           <div class="product_content_flex_item">
-            <button>
+            <button @click="getCategory('accessory')">
               <div></div>
-              <span>普洱</span>
+              <span>小物</span>
             </button>
           </div>
           <div class="product_content_flex_item">
-            <button>
+            <button @click="getCategory('accessory')">
               <div></div>
-              <span>花草茶</span>              
+              <span>必備</span>              
             </button>
           </div>                        
         </div>
@@ -120,7 +120,6 @@ export default {
       }).catch(() => {});
 
       this.pagination.category = item;
-      console.log(item)
     },
   },
 
@@ -146,13 +145,7 @@ export default {
 
   created() {
     this.getProducts();
-    this.getAllProducts();
-    
-    this.$bus.$on('get:category', item => {
-      console.log(item)
-      this.category = item;
-      this.getCategory(item);
-    })    
+    this.getAllProducts();    
   },
 };
 </script>

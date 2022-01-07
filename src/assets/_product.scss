@@ -41,8 +41,8 @@
   }
 
   aside {
-    flex: 0 1 150px;
-    padding: 20px;
+    flex: 0 1 10%;
+    padding: 20px 15px;
     margin-right: 50px;
     
     @include mediaquery_phone {
@@ -89,14 +89,14 @@
           width: 45px;
           height: 45px;
           border-radius: 50%;
-          background-color: brown;
+          background-color: #FAC670;
         }
       }
     
       &:nth-child(2) {
         div {
           &:before {
-            background-color:#C3D825;
+            background-color:#FCA175;
           }
         }
       }
@@ -104,7 +104,7 @@
       &:nth-child(3) {
         div {
           &:before {
-            background-color:#FFF;
+            background-color:#F36300;
           }
         }
       }
@@ -112,7 +112,7 @@
       &:nth-child(4) {
         div {
           &:before {
-            background-color:#383d43;
+            background-color:#91C3C1;
           }
         }
       }
@@ -120,7 +120,7 @@
       &:nth-child(5) {
         div {
           &:before {
-            background-color:#E6BE71;
+            background-color:#008481;
           }
         }
       }
@@ -128,7 +128,7 @@
       &:nth-child(6) {
         div {
           &:before {
-            background-color:#B180E6;
+            background-color:#BEA8E6;
           }
         }
       }
@@ -142,8 +142,7 @@
 
 .product_main{
   padding: 20px 0;
-  flex-grow: 1;
-
+  flex: 1 1 90%;
   nav {
     margin-top: 100px;
   }

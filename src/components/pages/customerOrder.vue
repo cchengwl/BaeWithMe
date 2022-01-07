@@ -203,7 +203,6 @@ export default({
       vm.status.loadingItem = id;
 
       this.$http.get(api).then((response) => {
-        // console.log(response.data);
         vm.productDetail = response.data.product;
         $('#productModal').modal('show');
         vm.productDetail.num = 1;
@@ -242,7 +241,6 @@ export default({
       const vm = this;
 
       this.$http.delete(api).then((response) => {
-        console.log(response.data);
         vm.getCart();
       })
     },
@@ -266,7 +264,6 @@ export default({
       const vm = this;
 
       this.$http.post(api, {"data":vm.form} ).then((response) => {
-        console.log(response.data);
         this.$router.push(`/customer_checkout/${response.data.orderId}`);
       })
     },

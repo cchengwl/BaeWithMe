@@ -9,6 +9,16 @@
   background: $custom--black;
   .container{
     position: relative;
+
+    &_img {
+      width: 115px;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      img{
+        width: 100%;
+      }
+    }
   }
   ul {
     padding: 0;
@@ -52,11 +62,6 @@
         color: $custom--black;
       }
     }
-    // .active_span {
-    //   display: block;
-    //   height: 3px;
-    //   background: $custom--main;
-    // }
   }
   a {
     color: $custom--white;
@@ -131,15 +136,6 @@
     }
   }
 }
-
-// #nav-bg {
-//   background: $custom--main;
-//   position: fixed;
-//   height: 5em;
-//   width: 100%;
-//   top: 0;
-//   z-index: 1;
-// }
 
 .cart_num {
   border: 1px solid $tiffany;

@@ -74,7 +74,6 @@ export default({
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/${vm.orderId}`;
 
       this.$http.get(api).then((response) => {
-        console.log(response.data);
         vm.order = response.data.order;
       })
     },

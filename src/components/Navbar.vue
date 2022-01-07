@@ -20,7 +20,6 @@
 
         this.$http.post(api).then(response => {
           if(response.data.success){
-            console.log(response.data)
             vm.$router.push('/login');
           }
         })

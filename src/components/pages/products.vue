@@ -9,7 +9,6 @@
         <tr>
           <td style="width: 200px;">類別</td>
           <td>產品名稱</td>
-          <td class="text-right" style="width: 100px;">數量</td>
           <td class="text-right" style="width: 100px;">原價</td>
           <td class="text-right" style="width: 100px;">售價</td>
           <td class="text-center" style="width: 100px;">狀態</td>
@@ -20,7 +19,6 @@
         <tr v-for="item in products" :key="item.id">
           <td class="align-middle">{{item.category}}</td>
           <td class="align-middle">{{item.title}}</td>
-          <td class="text-right">{{item.num}}</td>
           <td class="text-right align-middle">{{item.origin_price | currency}}</td>
           <td class="text-right align-middle">{{item.price | currency}}</td>
           <td class="text-center align-middle">
@@ -76,8 +74,12 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="category">分類</label>
-                    <input type="text" class="form-control" id="category"
-                      placeholder="請輸入分類" v-model="tempProduct.category">
+                    <select class="custom-select" id="category" v-model="tempProduct.category">
+                      <option value="backpack">背包</option>
+                      <option value="shoes">鞋子</option>
+                      <option value="headgear">帽子</option>
+                      <option value="accessory">配件</option>
+                    </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">單位</label>
@@ -215,14 +217,12 @@ export default {
       }
 
       this.$http[httpMethod](api,{data: vm.tempProduct}).then((response) => { 
-      console.log(response.data)
       if(response.data.success) {
         $('#productModal').modal("hide");
         vm.getProducts();
       }else{
         $('#productModal').modal("hide");
         vm.getProducts();
-        console.log('新增失敗');
       }
       })
     },
@@ -243,7 +243,6 @@ export default {
           $('#delProductModal').modal('hide');
         }else {
           vm.getProducts();
-          console.log(response.data);
           $('#delProductModal').modal('hide');
         }
       })

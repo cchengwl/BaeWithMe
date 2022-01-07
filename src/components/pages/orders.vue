@@ -136,7 +136,6 @@ export default({
       vm.tempOrder.create_at = timeStamp;
 
       this.$http.put(api, {data: vm.tempOrder}).then((response) => {
-        console.log(response.data);
         $('#editModal').modal('hide');
         vm.getOrders();
       })

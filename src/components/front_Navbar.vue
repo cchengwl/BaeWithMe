@@ -2,6 +2,7 @@
   <div>
     <nav class="front_nav">
       <div class="container">
+        <div class="container_img"><img src="../assets/BaeWithMe-logos_transparent.png"></div>
         <ul :class="{'open': hamburgerActive}">
           <li><router-link :to="{name: 'home'}">首頁</router-link></li>
           <li><router-link :to="{name: 'front_Products_all'}">品牌商品</router-link></li>

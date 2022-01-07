@@ -150,7 +150,6 @@ export default {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
 
       this.$http.post(api, {data: vm.form}).then((response) => {
-        console.log(response.data)
         vm.orderId = response.data.orderId;
         $('#orderModal').modal('show');
       })
@@ -161,7 +160,6 @@ export default {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${orderId}`;
 
       this.$http.post(api).then((response) => {
-        console.log(response.data);
         vm.$router.push({
           name: 'front_Paid',
           params: { orderId: orderId }

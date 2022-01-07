@@ -2,45 +2,48 @@
   <div>
     <front-navbar/>
     <div class="product_nav_margin"></div>
-      <div class="index_banner"></div>    
+      <div class="index_banner">
+        <h2>旅行需要什麼？</h2>
+        <p>只需要自備勇氣，剩下的就交給我們吧！</p>
+      </div>
     <div class="container">
       <div class="index_category">
-        <h3>茶葉類型</h3>
+        <h3>商品分類</h3>
         <div class="index_category_flex">
           <div class="index_category_flex_item">
             <button @click="gotoProduct('backpack')">
               <div></div>
-              <span>紅茶</span>
+              <span>旅行背包</span>
             </button>
           </div>
           <div class="index_category_flex_item">
             <button @click="gotoProduct('shoes')">
               <div></div>
-              <span>綠茶</span>              
+              <span>旅行鞋類</span>              
             </button>
           </div>
           <div class="index_category_flex_item">
-            <button>
+            <button @click="gotoProduct('headgear')">
               <div></div>
-              <span>白茶</span>
+              <span>旅行帽子</span>
             </button>
           </div>
           <div class="index_category_flex_item">
-            <button>
+            <button @click="gotoProduct('accessory')">
               <div></div>
-              <span>烏龍</span>              
+              <span>旅行配件</span>              
             </button>
           </div>
           <div class="index_category_flex_item">
-            <button>
+            <button @click="gotoProduct('accessory')">
               <div></div>
-              <span>普洱</span>
+              <span>旅行小物</span>
             </button>
           </div>
           <div class="index_category_flex_item">
-            <button>
+            <button @click="gotoProduct('accessory')">
               <div></div>
-              <span>花草茶</span>              
+              <span>旅行必備</span>              
             </button>
           </div>                        
         </div>
@@ -76,13 +79,6 @@
           </carousel>
         </div>        
       </div>
-      <div class="index_intro">
-        <div class="index_intro_img"><img src="https://cdn.shopify.com/s/files/1/1234/1342/products/2021_Pantry_Sugarfina_Bento_Winter_Village_P0002_5000x.jpg?v=1635800568"></div>
-        <div class="index_intro_text">
-          <h1>好茶值得擁有</h1>
-          <p>好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有好茶值得擁有</p>
-        </div>
-      </div>
     </div>
     <section id="index_album">
         <carousel
@@ -117,6 +113,7 @@ import $ from "jquery";
 import frontNavbar from '../front_Navbar.vue';
 import frontFooter from '../front_Footer.vue';
 import Stars from '../Stars.vue';
+// import sss from '../../assets/IMG_6694.JPG';
 
 export default {
   components: {frontNavbar , frontFooter, Stars } ,
@@ -155,7 +152,6 @@ export default {
           name: 'korea',
           backgroundUrl:'https://cdn.pixabay.com/photo/2020/08/09/11/31/business-5475283_1280.jpg'
         },
-
         {
           name: 'girlOcean',
           backgroundUrl:'https://cdn.pixabay.com/photo/2020/03/16/06/36/wait-for-a-call-4935894_1280.jpg'
@@ -164,6 +160,46 @@ export default {
           name: 'manBack',
           backgroundUrl:'https://cdn.pixabay.com/photo/2020/05/30/12/58/iran-5238845_1280.jpg'
         },
+        {
+          name: 'europe',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2021/08/03/11/48/canal-6519196_1280.jpg'
+        },
+        {
+          name: 'korea',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/08/09/11/31/business-5475283_1280.jpg'
+        },
+        {
+          name: 'girlOcean',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/03/16/06/36/wait-for-a-call-4935894_1280.jpg'
+        },
+        {
+          name: 'manBack',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/05/30/12/58/iran-5238845_1280.jpg'
+        },
+        {
+          name: 'europe',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2021/08/03/11/48/canal-6519196_1280.jpg'
+        },
+        {
+          name: 'korea',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/08/09/11/31/business-5475283_1280.jpg'
+        },
+        {
+          name: 'girlOcean',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/03/16/06/36/wait-for-a-call-4935894_1280.jpg'
+        },
+        {
+          name: 'manBack',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/05/30/12/58/iran-5238845_1280.jpg'
+        },
+        {
+          name: 'europe',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2021/08/03/11/48/canal-6519196_1280.jpg'
+        },
+        {
+          name: 'korea',
+          backgroundUrl:'https://cdn.pixabay.com/photo/2020/08/09/11/31/business-5475283_1280.jpg'
+        },        
       ],
       windowWidth: 0,
       products: [],

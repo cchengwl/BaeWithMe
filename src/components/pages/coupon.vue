@@ -186,7 +186,6 @@ export default {
       }
       
       this.$http[httpMethod](api, {data: vm.tempCoupon}).then((response) => {
-        console.log(response.data);
         $('#couponModal').modal('hide');
         this.getCoupon();
       })
@@ -202,7 +201,6 @@ export default {
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
 
       this.$http.delete(api).then((response) => {
-        console.log(response.data);
         $('#deleteCoupon').modal('hide');
         vm.getCoupon();
       })
