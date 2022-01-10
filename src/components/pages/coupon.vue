@@ -7,23 +7,18 @@
       <thead class="thead-light">
         <tr>
           <th class="text-center">到期日</th>
-          <th>優惠券名稱</th>
+          <th class="text-center">優惠券名稱</th>
           <th class="text-center">優惠碼</th>
-          <th class="text-right">折數</th>
-          <th class="text-center">是否啟用</th>
+          <th class="text-center">折數</th>
           <th class="text-center">編輯</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in coupons" :key="item.id">
           <td class="text-center align-middle">{{item.due_date}}</td>
-          <td class="align-middle">{{item.title}}</td>
+          <td class="align-middle text-center">{{item.title}}</td>
           <td class="text-center align-middle">{{item.code}}</td>
-          <td class="text-right align-middle">{{item.percent}}</td>
-          <td class="text-center align-middle">
-            <span class=text-success v-if="item.is_enabled === 1">已啟用</span>
-            <span class=text-danger v-else>未啟用</span>
-          </td>
+          <td class="text-center align-middle">{{item.percent}}</td>
           <td class="text-center align-middle" style="font-size: 0px;">
             <button class="btn btn-outline-primary editBtn" @click="openModal(false,item)">編輯</button>
             <button class="btn btn-outline-danger delBtn" @click="deleteModal(item)">刪除</button>
@@ -75,15 +70,6 @@
                   <span class="text-danger">{{ errors[0] }}</span>
                 </div>
               </Validation-provider>
-              <div class="form-group mt-3 mb-0 text-right">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="0" id="invalidCheck"
-                    v-model="tempCoupon.is_enabled" :true-value="1" :false-value="0">
-                  <label class="form-check-label" for="invalidCheck">
-                    是否啟用
-                  </label>
-                </div>
-              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" @click="updateCoupon" :disabled="invalid">確認送出</button>

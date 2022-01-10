@@ -2,8 +2,8 @@
   position: fixed;
   width: 100%;
   margin: 0 auto;
-  top: 0;
-  z-index: 3;
+  top: 2.5rem;
+  z-index: 10;
   height: 5rem;
   width: 100%;
   background: $custom--black;
@@ -15,6 +15,7 @@
       position: absolute;
       top: -10px;
       left: 10px;
+      cursor: pointer;
       img{
         width: 100%;
       }
@@ -25,17 +26,17 @@
     margin: 0;
     list-style-type: none;
     float: right;
+    transition: right 1s;
     @include mediaquery_pad {
       background-color: $custom--grey;
       position: fixed;
-      top: 5rem;
+      top: 7.5rem;
       right: -100%;
       width: 100%;
     }
   }
 
   .open {
-    transition: all .8s;
     right: 0;
   }
 
@@ -138,8 +139,8 @@
 }
 
 .cart_num {
-  border: 1px solid $tiffany;
-  background: $tiffany;
+  border: 1px solid $custom--footer-green;
+  background: $custom--footer-green;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -147,4 +148,20 @@
   position: absolute;
   top: 13px;
   right: 8px;
+}
+
+.front_nav_sale {
+  color: $custom--white;
+  background-color: $custom--main;
+  text-align: center;
+  height: 2.5rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: inline-block;
+  z-index: 10;
+  span {
+    text-align: center;
+    line-height: 40px;
+  }
 }

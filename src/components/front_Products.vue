@@ -5,10 +5,9 @@
       <article class="product_article">
         <div class="product_article_mask"></div>
         <div class="container">
-          <h4>Products</h4>
+          <h4>產品列表</h4>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            為您嚴選高品質產品，所有商品皆經過SGS品質檢驗合格，讓您用的安心。
           </p>
         </div>
       </article>
@@ -44,13 +43,13 @@
           <div class="product_content_flex_item">
             <button @click="getCategory('accessory')">
               <div></div>
-              <span>小物</span>
+              <span>配件</span>
             </button>
           </div>
           <div class="product_content_flex_item">
             <button @click="getCategory('accessory')">
               <div></div>
-              <span>必備</span>              
+              <span>配件</span>              
             </button>
           </div>                        
         </div>

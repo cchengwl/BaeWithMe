@@ -99,7 +99,7 @@ export default new Router({
       ]
     },
     {
-      path: '/',
+      path: '/customer',
       name: 'Customer',
       component: Dashboard,
       children: [

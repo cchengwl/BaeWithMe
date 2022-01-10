@@ -15,6 +15,7 @@
     left: 50%;
     transform: translate(-50%,-50%);
     font-size: $custom--h4;
+    font-weight: bold;
   }
   p{
     width: 100%;
@@ -33,7 +34,7 @@
 
 .product_content{
   background-color: #FFF;
-  margin: 50px;
+  margin: 50px auto;
   max-width: 1140px;
   display: flex;
   @include mediaquery_pad {

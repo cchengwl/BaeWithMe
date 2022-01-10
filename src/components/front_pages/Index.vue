@@ -37,13 +37,13 @@
           <div class="index_category_flex_item">
             <button @click="gotoProduct('accessory')">
               <div></div>
-              <span>旅行小物</span>
+              <span>旅行配件</span>
             </button>
           </div>
           <div class="index_category_flex_item">
             <button @click="gotoProduct('accessory')">
               <div></div>
-              <span>旅行必備</span>              
+              <span>旅行配件</span>              
             </button>
           </div>                        
         </div>

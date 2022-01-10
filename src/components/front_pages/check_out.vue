@@ -94,7 +94,7 @@
               <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-check-circle"></i>訂單建立成功</h5>
               <h6>感謝您的訂購，訂單編號為:</h6>
               <h6>{{orderId}}</h6>
-              <button class="add_to_cart_button" @click="goPay(orderId)">前往付款</button>
+              <button class="add_to_cart_button" @click="goPay()">前往付款</button>
             </div>
           </div>
         </div>
@@ -155,15 +155,17 @@ export default {
       })
     },
 
-    goPay(orderId) {
+    goPay() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${orderId}`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${vm.orderId}`;
 
       this.$http.post(api).then((response) => {
-        vm.$router.push({
-          name: 'front_Paid',
-          params: { orderId: orderId }
-        }).catch(() => {});
+        if(response.data.success) {
+          vm.$router.push({
+            name: 'front_Paid',
+            params: { orderId: vm.orderId }
+          });
+        }
       })
     },
 

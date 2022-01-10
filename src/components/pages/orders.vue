@@ -4,6 +4,7 @@
       <thead class="thead-dark">
         <tr>
           <th>購買時間</th>
+          <th>訂單編號</th>
           <th>Email</th>
           <th>購買款項</th>
           <th class="text-right">應付金額</th>
@@ -14,6 +15,7 @@
       <tbody>
         <tr v-for="item in orders" :key="item.id">
           <td class="align-middle">{{ item.create_at}}</td>
+          <td class="align-middle">{{ item.id}}</td>
           <td class="align-middle">{{item.user.email}}</td>
           <!-- 再次使用v-for取得products內物件 -->
           <td class="align-middle">
@@ -79,14 +81,16 @@
         </div>
       </div>
     </div>
+    <pagination :pagination="pagination"/>
   </div>
 </template>
 
 <script>
 import $ from 'jquery';
+import Pagination from '../Pagination.vue';
 
 export default({
-
+  components: { Pagination },
   data() {
     return {
       orders: [],
@@ -94,15 +98,17 @@ export default({
         // 避免剛載入時tempOrder是empty報錯，在裡面加上user這個物件
         user:{},
       },
+      pagination: {}
     }
   },
 
   methods: {
-    getOrders(){
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/orders?page=:page`;
+    getOrders(page = 1){
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/orders?page=${page}`;
       const vm = this;
 
       this.$http.get(api).then((response) => {
+        vm.pagination = response.data.pagination;
         vm.orders = response.data.orders;
         vm.orders.forEach(function(item) {
           // timestamp 乘上1000轉換為現在時間
@@ -144,6 +150,9 @@ export default({
   
   created() {
     this.getOrders();
+    this.$bus.$on('getProducts', page =>{
+      this.getOrders(page);
+    })    
   }
 
 })
