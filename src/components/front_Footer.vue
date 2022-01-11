@@ -26,6 +26,7 @@
           <button class="btn btn-tiffany">訂閱</button>
         </div>
       </div>
-    </footer>    
+    </footer>
+    <div class="footer-sign">此網站僅供練習，無任何商業用途</div>
   </div>
 </template>

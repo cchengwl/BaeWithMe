@@ -1,5 +1,5 @@
 footer{
-  padding: 70px 30px;
+  padding: 70px 30px 50px 30px;
   color: $custom--footer-green;
   background-color: $custom--black;
   
@@ -53,5 +53,16 @@ footer{
   }
   .footer-logo{
     flex-grow: 1;
+    font-weight: bold;
+    font-size: 20px;
   }
+}
+
+.footer-sign {
+  text-align: center;
+  font-weight: bold;
+  background-color: $custom--black;
+  color: $custom--footer-green;
+  font-size: 18px;
+  padding: 20px 0;
 }
