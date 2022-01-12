@@ -17,6 +17,12 @@
         <h6>分類</h6>
         <div class="product_content_flex">
           <div class="product_content_flex_item">
+            <button @click="getCategory(null)">
+              <div></div>
+              <span>所有商品</span>
+            </button>
+          </div>
+          <div class="product_content_flex_item">
             <button @click="getCategory('backpack')">
               <div></div>
               <span>背包</span>
@@ -111,12 +117,18 @@ export default {
     getCategory(item) {
       const vm = this;
 
-      this.$router.push({
-        name: 'front_Products_all',
-        query: {
-          category: item
-        }
-      }).catch(() => {});
+      if(item === null) {
+        this.$router.push({
+          name: 'front_Products_all',
+        }).catch(() => {}); 
+      }else {
+        this.$router.push({
+          name: 'front_Products_all',
+          query: {
+            category: item
+          }
+        }).catch(() => {});
+      }
 
       this.pagination.category = item;
     },

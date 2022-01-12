@@ -67,3 +67,8 @@ router.beforeEach((to, from, next) => {
     next();
   }
 })
+
+// 換頁後從最上方顯示
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
+});
